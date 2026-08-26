@@ -12,30 +12,39 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/cashierDashboardTransactionCode"
             style="@style/DashboardOrderCode"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="@string/cashier_transaction_one_code" />
+            android:layout_weight="1" />
 
         <TextView
+            android:id="@+id/cashierDashboardTransactionStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
-            android:text="@string/cashier_transaction_one_status"
-            android:textColor="@color/dashboard_success"
+            android:textColor="@color/laundry_text_secondary"
             android:textSize="11sp" />
     </LinearLayout>
 
     <TextView
+        android:id="@+id/cashierDashboardTransactionCustomer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/cashier_transaction_one_customer"
         android:textColor="@color/laundry_text_primary"
         android:textSize="14sp" />
 
     <TextView
-        style="@style/DashboardOrderDetail"
-        android:text="@string/cashier_transaction_one_detail" />
+        android:id="@+id/cashierDashboardTransactionDetail"
+        style="@style/DashboardOrderDetail" />
+
+    <TextView
+        android:id="@+id/cashierDashboardTransactionTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/laundry_text_primary"
+        android:textSize="13sp" />
 </LinearLayout>

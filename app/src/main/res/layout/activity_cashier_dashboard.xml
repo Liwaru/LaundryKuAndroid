@@ -86,17 +86,20 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/cashierDashboardScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:overScrollMode="never"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/cashierBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cashierDashboardHeader">
 
         <LinearLayout
+            android:id="@+id/cashierDashboardContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -119,7 +122,7 @@
                     android:layout_marginEnd="6dp"
                     app:cardBackgroundColor="@color/staff_blue_soft">
                     <LinearLayout style="@style/StaffSummaryContent">
-                        <TextView style="@style/StaffSummaryCount" android:text="@string/cashier_count_incoming" />
+                        <TextView android:id="@+id/cashierCountActive" style="@style/StaffSummaryCount" tools:text="8" />
                         <TextView style="@style/StaffSummaryLabel" android:text="@string/cashier_incoming_orders" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -129,7 +132,7 @@
                     android:layout_marginStart="6dp"
                     app:cardBackgroundColor="@color/dashboard_warning_soft">
                     <LinearLayout style="@style/StaffSummaryContent">
-                        <TextView style="@style/StaffSummaryCount" android:text="@string/cashier_count_unpaid" />
+                        <TextView android:id="@+id/cashierCountUnpaid" style="@style/StaffSummaryCount" tools:text="3" />
                         <TextView style="@style/StaffSummaryLabel" android:text="@string/cashier_unpaid" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -147,7 +150,7 @@
                     android:layout_marginEnd="6dp"
                     app:cardBackgroundColor="@color/staff_cyan_soft">
                     <LinearLayout style="@style/StaffSummaryContent">
-                        <TextView style="@style/StaffSummaryCount" android:text="@string/cashier_count_ready" />
+                        <TextView android:id="@+id/cashierCountReady" style="@style/StaffSummaryCount" tools:text="2" />
                         <TextView style="@style/StaffSummaryLabel" android:text="@string/cashier_ready_pickup" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -157,8 +160,8 @@
                     android:layout_marginStart="6dp"
                     app:cardBackgroundColor="@color/dashboard_success_soft">
                     <LinearLayout style="@style/StaffSummaryContent">
-                        <TextView style="@style/StaffSummaryCount" android:text="@string/cashier_count_completed" />
-                        <TextView style="@style/StaffSummaryLabel" android:text="@string/cashier_completed" />
+                        <TextView android:id="@+id/cashierIncomeToday" style="@style/StaffSummaryCount" android:textSize="18sp" tools:text="Rp125.000" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/cashier_income_today" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
@@ -231,10 +234,11 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <TextView style="@style/DashboardSectionTitle" android:layout_width="0dp" android:layout_weight="1" android:text="@string/cashier_latest_transactions" />
-                <TextView android:layout_width="wrap_content" android:layout_height="48dp" android:fontFamily="sans-serif-medium" android:gravity="center" android:text="@string/see_all" android:textColor="@color/laundry_primary" android:textSize="13sp" />
+                <TextView android:id="@+id/cashierSeeAllTransactions" android:layout_width="wrap_content" android:layout_height="48dp" android:fontFamily="sans-serif-medium" android:gravity="center" android:text="@string/see_all" android:textColor="@color/laundry_primary" android:textSize="13sp" />
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cashierRecentTransactionsCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="@color/laundry_surface"
@@ -243,18 +247,33 @@
                 app:strokeColor="@color/dashboard_divider"
                 app:strokeWidth="1dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <include layout="@layout/item_cashier_transaction_one" />
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:background="@color/dashboard_divider" />
-                    <include layout="@layout/item_cashier_transaction_two" />
+                    <LinearLayout
+                        android:id="@+id/cashierRecentTransactionsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                    <LinearLayout
+                        android:id="@+id/cashierRecentTransactionsEmpty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="24dp"
+                        android:visibility="gone">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif-medium" android:text="@string/cashier_dashboard_empty_title" android:textColor="@color/laundry_text_primary" android:textSize="15sp" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:gravity="center" android:text="@string/cashier_dashboard_empty_description" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/cashierReadyOrdersTitle"
                 style="@style/DashboardSectionTitle"
                 android:layout_marginTop="26dp"
                 android:text="@string/cashier_ready_orders" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cashierReadyOrdersCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -263,14 +282,39 @@
                 app:cardElevation="0dp"
                 app:strokeColor="@color/dashboard_divider"
                 app:strokeWidth="1dp">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <TextView android:layout_width="match_parent" android:layout_height="52dp" android:fontFamily="sans-serif-medium" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:text="@string/cashier_ready_order_one" android:textColor="@color/laundry_text_primary" android:textSize="14sp" />
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp" android:background="@color/dashboard_divider" />
-                    <TextView android:layout_width="match_parent" android:layout_height="52dp" android:fontFamily="sans-serif-medium" android:gravity="center_vertical" android:paddingStart="16dp" android:paddingEnd="16dp" android:text="@string/cashier_ready_order_two" android:textColor="@color/laundry_text_primary" android:textSize="14sp" />
-                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/cashierReadyOrdersList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/cashierDashboardLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/cashierBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cashierDashboardHeader" />
+
+    <LinearLayout
+        android:id="@+id/cashierDashboardErrorState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/cashierBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cashierDashboardHeader">
+        <TextView android:id="@+id/cashierDashboardErrorMessage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif-medium" android:text="@string/cashier_dashboard_load_error" android:textColor="@color/laundry_text_primary" android:textSize="16sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/cashierDashboardRetryButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="48dp" android:layout_marginTop="12dp" android:text="@string/cashier_dashboard_retry" android:textAllCaps="false" android:textColor="@color/laundry_primary" app:strokeColor="@color/laundry_primary" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/cashierBottomNavigation"
