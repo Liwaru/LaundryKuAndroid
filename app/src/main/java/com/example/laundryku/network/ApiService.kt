@@ -22,6 +22,7 @@ import com.example.laundryku.model.CashierCustomersResponse
 import com.example.laundryku.model.StaffDashboardResponse
 import com.example.laundryku.model.StaffHistoryResponse
 import com.example.laundryku.model.StaffJobsResponse
+import com.example.laundryku.model.OwnerDashboardResponse
 import com.example.laundryku.model.UpdateLaundryStatusRequest
 import com.example.laundryku.model.UpdateLaundryStatusResponse
 import retrofit2.Call
@@ -73,6 +74,9 @@ interface ApiService {
 
     @GET("api/cashier_dashboard.php")
     fun getCashierDashboard(@Query("id_user") userId: Int): Call<CashierDashboardResponse>
+
+    @GET("api/owner_dashboard.php")
+    fun getOwnerDashboard(@Query("id_user") userId: Int): Call<OwnerDashboardResponse>
 
     @GET("api/cashier_customers.php")
     fun getCashierCustomers(@Query("id_user") userId: Int): Call<CashierCustomersResponse>

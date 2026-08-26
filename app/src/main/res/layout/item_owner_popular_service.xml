@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/ownerPopularServiceRank"
+        style="@style/OwnerRankNumber" />
+
+    <TextView
+        android:id="@+id/ownerPopularServiceName"
+        style="@style/OwnerListLabel"
+        android:layout_marginStart="12dp" />
+
+    <TextView
+        android:id="@+id/ownerPopularServiceCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/laundry_text_secondary"
+        android:textSize="12sp" />
+</LinearLayout>
