@@ -184,7 +184,7 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginEnd="6dp">
+                <com.google.android.material.card.MaterialCardView android:id="@+id/ownerFinancialReportsMenu" style="@style/OwnerMenuCard" android:layout_marginEnd="6dp">
                     <LinearLayout style="@style/CashierQuickContent">
                         <FrameLayout style="@style/CashierQuickIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_financial_report" android:src="@drawable/ic_owner_chart" />
@@ -193,7 +193,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
-                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginStart="6dp">
+                <com.google.android.material.card.MaterialCardView android:id="@+id/ownerTransactionReportsMenu" style="@style/OwnerMenuCard" android:layout_marginStart="6dp">
                     <LinearLayout style="@style/CashierQuickContent">
                         <FrameLayout style="@style/CashierQuickIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_transaction_report" android:src="@drawable/ic_owner_transaction_report" />

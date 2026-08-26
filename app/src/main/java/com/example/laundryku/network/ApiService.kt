@@ -26,6 +26,7 @@ import com.example.laundryku.model.OwnerDashboardResponse
 import com.example.laundryku.model.OwnerCreateStaffRequest
 import com.example.laundryku.model.OwnerCreateStaffResponse
 import com.example.laundryku.model.OwnerStaffResponse
+import com.example.laundryku.model.OwnerReportsResponse
 import com.example.laundryku.model.UpdateLaundryStatusRequest
 import com.example.laundryku.model.UpdateLaundryStatusResponse
 import retrofit2.Call
@@ -86,6 +87,12 @@ interface ApiService {
 
     @POST("api/owner_create_staff.php")
     fun createOwnerStaff(@Body request: OwnerCreateStaffRequest): Call<OwnerCreateStaffResponse>
+
+    @GET("api/owner_reports.php")
+    fun getOwnerReports(
+        @Query("id_user") userId: Int,
+        @Query("period") period: String
+    ): Call<OwnerReportsResponse>
 
     @GET("api/cashier_customers.php")
     fun getCashierCustomers(@Query("id_user") userId: Int): Call<CashierCustomersResponse>

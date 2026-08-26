@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="14dp"
+    android:paddingBottom="14dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/ownerTransactionCode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/laundry_text_secondary" android:textSize="12sp" tools:text="#LDY001" />
+            <TextView android:id="@+id/ownerTransactionCustomer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:fontFamily="sans-serif-medium" android:textColor="@color/laundry_text_primary" android:textSize="16sp" android:textStyle="bold" tools:text="Nama pelanggan" />
+        </LinearLayout>
+        <TextView android:id="@+id/ownerTransactionLaundryStatus" style="@style/CustomerOrderStatusBadge" tools:text="Selesai" />
+    </LinearLayout>
+    <TextView android:id="@+id/ownerTransactionService" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" tools:text="Cuci Setrika • 4,5 kg" />
+    <TextView android:id="@+id/ownerTransactionTotalPrice" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:fontFamily="sans-serif-medium" android:textColor="@color/laundry_text_primary" android:textSize="16sp" android:textStyle="bold" tools:text="Rp45.000" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:gravity="center_vertical" android:orientation="horizontal">
+        <TextView android:id="@+id/ownerTransactionDate" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:textColor="@color/laundry_text_secondary" android:textSize="12sp" tools:text="26 Agustus 2026" />
+        <TextView android:id="@+id/ownerTransactionPaymentStatus" style="@style/CustomerOrderStatusBadge" tools:text="Sudah Dibayar" />
+    </LinearLayout>
+</LinearLayout>

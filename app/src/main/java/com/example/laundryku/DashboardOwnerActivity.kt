@@ -39,6 +39,12 @@ class DashboardOwnerActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.ownerGreetingText).text =
             getString(R.string.dashboard_greeting_format, session.getNama())
         findViewById<View>(R.id.ownerNavReports).setOnClickListener { openScreen(OwnerReportsActivity::class.java) }
+        findViewById<View>(R.id.ownerFinancialReportsMenu).setOnClickListener {
+            openScreen(OwnerReportsActivity::class.java)
+        }
+        findViewById<View>(R.id.ownerTransactionReportsMenu).setOnClickListener {
+            openScreen(OwnerReportsActivity::class.java)
+        }
         findViewById<View>(R.id.ownerNavStaff).setOnClickListener { openScreen(OwnerStaffActivity::class.java) }
         findViewById<View>(R.id.ownerNavProfile).setOnClickListener { openProfileForLevel(4) }
         findViewById<View>(R.id.ownerDashboardRetryButton).setOnClickListener { loadDashboard() }

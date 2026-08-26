@@ -41,11 +41,13 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/ownerReportsScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:overScrollMode="never"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/ownerReportsBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,9 +69,9 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="3dp">
-                <TextView style="@style/CustomerOrderFilterTab.Active" android:text="@string/owner_reports_period_today" />
-                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_reports_period_week" />
-                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_reports_period_month" />
+                <TextView android:id="@+id/ownerReportsPeriodToday" style="@style/CustomerOrderFilterTab.Active" android:text="@string/owner_reports_period_today" />
+                <TextView android:id="@+id/ownerReportsPeriodWeek" style="@style/CustomerOrderFilterTab" android:text="@string/owner_reports_period_week" />
+                <TextView android:id="@+id/ownerReportsPeriodMonth" style="@style/CustomerOrderFilterTab" android:text="@string/owner_reports_period_month" />
             </LinearLayout>
 
             <TextView
@@ -83,7 +85,7 @@
                         <FrameLayout style="@style/OwnerIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_reports_revenue" android:src="@drawable/ic_owner_wallet" />
                         </FrameLayout>
-                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_reports_revenue_value" />
+                        <TextView android:id="@+id/ownerReportsRevenue" style="@style/OwnerSummaryValue" />
                         <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_reports_revenue" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -92,7 +94,7 @@
                         <FrameLayout style="@style/OwnerIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_reports_total_transactions" android:src="@drawable/ic_owner_receipt" />
                         </FrameLayout>
-                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_reports_total_transactions_value" />
+                        <TextView android:id="@+id/ownerReportsTotalTransactions" style="@style/OwnerSummaryValue" />
                         <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_reports_total_transactions" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -104,7 +106,7 @@
                         <FrameLayout style="@style/OwnerIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_reports_completed" android:src="@drawable/ic_owner_check" />
                         </FrameLayout>
-                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_reports_completed_value" />
+                        <TextView android:id="@+id/ownerReportsCompleted" style="@style/OwnerSummaryValue" />
                         <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_reports_completed" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -113,7 +115,7 @@
                         <FrameLayout style="@style/OwnerIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_reports_cancelled" android:src="@drawable/ic_owner_cancel" />
                         </FrameLayout>
-                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_reports_cancelled_value" />
+                        <TextView android:id="@+id/ownerReportsCancelled" style="@style/OwnerSummaryValue" />
                         <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_reports_cancelled" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -130,9 +132,10 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:fontFamily="sans-serif-medium" android:text="@string/owner_reports_financial_title" android:textColor="@color/laundry_text_primary" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
                     <TextView style="@style/CustomerOrderInfoLabel" android:layout_marginTop="16dp" android:text="@string/owner_reports_income_label" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:fontFamily="sans-serif-medium" android:text="@string/owner_reports_income_value" android:textColor="@color/laundry_text_primary" android:textSize="22sp" android:textStyle="bold" />
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/owner_reports_successful_payments" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
-                    <com.google.android.material.button.MaterialButton style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginTop="16dp" android:text="@string/detail_order" android:textAllCaps="false" android:textColor="@color/laundry_primary" android:textSize="13sp" app:cornerRadius="12dp" app:strokeColor="@color/laundry_primary" />
+                    <TextView android:id="@+id/ownerReportsFinancialIncome" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:fontFamily="sans-serif-medium" android:textColor="@color/laundry_text_primary" android:textSize="22sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/ownerReportsSuccessfulPayments" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
+                    <LinearLayout android:id="@+id/ownerReportsFinancialList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="vertical" />
+                    <TextView android:id="@+id/ownerReportsFinancialEmpty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:gravity="center" android:padding="16dp" android:text="@string/owner_reports_financial_empty" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" android:visibility="gone" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -147,14 +150,15 @@
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:fontFamily="sans-serif-medium" android:text="@string/owner_reports_transaction_title" android:textColor="@color/laundry_text_primary" android:textSize="18sp" android:textStyle="bold" />
                     </LinearLayout>
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:orientation="horizontal">
-                        <TextView android:layout_width="0dp" android:layout_height="48dp" android:layout_marginEnd="5dp" android:layout_weight="1" android:background="@drawable/bg_owner_count" android:gravity="center" android:text="@string/owner_reports_transaction_total" android:textColor="@color/laundry_primary_dark" android:textSize="13sp" />
-                        <TextView android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="5dp" android:layout_weight="1" android:background="@drawable/bg_status_done" android:gravity="center" android:text="@string/owner_reports_transaction_completed" android:textColor="@color/dashboard_success" android:textSize="13sp" />
+                        <TextView android:id="@+id/ownerReportsTransactionTotal" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginEnd="5dp" android:layout_weight="1" android:background="@drawable/bg_owner_count" android:gravity="center" android:textColor="@color/laundry_primary_dark" android:textSize="13sp" />
+                        <TextView android:id="@+id/ownerReportsTransactionCompleted" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="5dp" android:layout_weight="1" android:background="@drawable/bg_status_done" android:gravity="center" android:textColor="@color/dashboard_success" android:textSize="13sp" />
                     </LinearLayout>
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:orientation="horizontal">
-                        <TextView android:layout_width="0dp" android:layout_height="48dp" android:layout_marginEnd="5dp" android:layout_weight="1" android:background="@drawable/bg_order_status_washing" android:gravity="center" android:text="@string/owner_reports_transaction_active" android:textColor="@color/laundry_primary_dark" android:textSize="13sp" />
-                        <TextView android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="5dp" android:layout_weight="1" android:background="@drawable/bg_history_cancelled" android:gravity="center" android:text="@string/owner_reports_transaction_cancelled" android:textColor="@color/history_cancelled" android:textSize="13sp" />
+                        <TextView android:id="@+id/ownerReportsTransactionActive" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginEnd="5dp" android:layout_weight="1" android:background="@drawable/bg_order_status_washing" android:gravity="center" android:textColor="@color/laundry_primary_dark" android:textSize="13sp" />
+                        <TextView android:id="@+id/ownerReportsTransactionCancelled" android:layout_width="0dp" android:layout_height="48dp" android:layout_marginStart="5dp" android:layout_weight="1" android:background="@drawable/bg_history_cancelled" android:gravity="center" android:textColor="@color/history_cancelled" android:textSize="13sp" />
                     </LinearLayout>
-                    <com.google.android.material.button.MaterialButton style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="46dp" android:layout_marginTop="16dp" android:text="@string/detail_order" android:textAllCaps="false" android:textColor="@color/laundry_primary" android:textSize="13sp" app:cornerRadius="12dp" app:strokeColor="@color/laundry_primary" />
+                    <LinearLayout android:id="@+id/ownerReportsTransactionList" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:orientation="vertical" />
+                    <TextView android:id="@+id/ownerReportsTransactionEmpty" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:gravity="center" android:padding="16dp" android:text="@string/owner_reports_transaction_empty" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" android:visibility="gone" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -166,18 +170,35 @@
             <com.google.android.material.card.MaterialCardView
                 style="@style/ProfileCard"
                 android:layout_marginTop="12dp">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:gravity="center_vertical" android:orientation="horizontal"><TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_one" /><TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_iron" /><TextView style="@style/OwnerOperationalCount" android:text="@string/owner_reports_service_iron_count" /></LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:gravity="center_vertical" android:orientation="horizontal"><TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_two" /><TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_dry" /><TextView style="@style/OwnerOperationalCount" android:text="@string/owner_reports_service_dry_count" /></LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:gravity="center_vertical" android:orientation="horizontal"><TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_three" /><TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_express" /><TextView style="@style/OwnerOperationalCount" android:text="@string/owner_reports_service_express_count" /></LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="50dp" android:gravity="center_vertical" android:orientation="horizontal"><TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_four" /><TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_bed_cover" /><TextView style="@style/OwnerOperationalCount" android:text="@string/owner_reports_service_bedcover_count" /></LinearLayout>
-                </LinearLayout>
+                <LinearLayout android:id="@+id/ownerReportsPopularServicesList" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp" />
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/ownerReportsLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/ownerReportsBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerReportsHeader" />
+
+    <LinearLayout
+        android:id="@+id/ownerReportsErrorState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/ownerReportsBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerReportsHeader">
+        <TextView android:id="@+id/ownerReportsErrorMessage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif-medium" android:text="@string/owner_reports_load_error" android:textColor="@color/laundry_text_primary" android:textSize="16sp" />
+        <com.google.android.material.button.MaterialButton android:id="@+id/ownerReportsRetryButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="48dp" android:layout_marginTop="12dp" android:text="@string/owner_reports_retry" android:textAllCaps="false" android:textColor="@color/laundry_primary" app:strokeColor="@color/laundry_primary" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ownerReportsBottomNavigation"
