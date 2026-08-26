@@ -371,6 +371,7 @@
     <string name="logout_cancel">Batal</string>
     <string name="logout_confirm">Keluar</string>
     <string name="session_save_failed">Session login tidak dapat disimpan</string>
+    <string name="session_expired">Sesi telah berakhir. Silakan login kembali.</string>
     <string name="create_order_title">Buat Pesanan</string>
     <string name="create_order_choose_service">Pilih Layanan</string>
     <string name="create_order_loading_services">Memuat layanan…</string>

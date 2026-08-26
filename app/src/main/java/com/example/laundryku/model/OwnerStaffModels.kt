@@ -30,7 +30,6 @@ data class OwnerStaffMember(
 )
 
 data class OwnerCreateStaffRequest(
-    @SerializedName("id_user") val ownerId: Int,
     val nama: String,
     @SerializedName("no_hp") val phone: String,
     val username: String,

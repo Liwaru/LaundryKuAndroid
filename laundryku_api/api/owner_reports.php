@@ -27,11 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     respond(405, false, 'Metode request tidak diizinkan');
 }
 
-$ownerId = positiveInteger($_GET['id_user'] ?? null);
-if ($ownerId === null) {
-    respond(400, false, 'ID owner tidak valid');
-}
-
 $period = (string) ($_GET['period'] ?? '');
 $periodLabels = [
     'today' => 'Hari Ini',
@@ -43,19 +38,12 @@ if (!array_key_exists($period, $periodLabels)) {
 }
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 try {
     $pdo = getDatabaseConnection();
 
-    // TODO: Replace client id_user with authenticated bearer-token identity.
-    $ownerStatement = $pdo->prepare(
-        'SELECT id_user, level, status_akun FROM users WHERE id_user = :id_user LIMIT 1'
-    );
-    $ownerStatement->execute(['id_user' => $ownerId]);
-    $owner = $ownerStatement->fetch();
-    if (!$owner || (int) $owner['level'] !== 4 || $owner['status_akun'] !== 'aktif') {
-        respond(403, false, 'Akun Owner tidak valid atau tidak aktif');
-    }
+    requireRole($pdo, [4]);
 
     $rangeSql = match ($period) {
         'today' => 'SELECT CURDATE() AS period_start, CURDATE() + INTERVAL 1 DAY AS period_end',

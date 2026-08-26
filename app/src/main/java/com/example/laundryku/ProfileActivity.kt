@@ -11,11 +11,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.laundryku.model.LogoutResponse
+import com.example.laundryku.network.RetrofitClient
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var sessionManager: SessionManager
+    private var logoutCall: Call<LogoutResponse>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,10 +52,29 @@ class ProfileActivity : AppCompatActivity() {
             .setTitle(R.string.logout_confirmation_title)
             .setNegativeButton(R.string.logout_cancel, null)
             .setPositiveButton(R.string.logout_confirm) { _, _ ->
-                sessionManager.clearSession()
-                openLoginAndClearTask()
+                logoutFromDevice()
             }
             .show()
+    }
+
+    private fun logoutFromDevice() {
+        findViewById<View>(R.id.profileLogoutMenu).isEnabled = false
+        logoutCall = RetrofitClient.apiService.logout().also { call ->
+            call.enqueue(object : Callback<LogoutResponse> {
+                override fun onResponse(call: Call<LogoutResponse>, response: Response<LogoutResponse>) {
+                    if (!isFinishing && !isDestroyed) finishLocalLogout()
+                }
+
+                override fun onFailure(call: Call<LogoutResponse>, throwable: Throwable) {
+                    if (!call.isCanceled && !isFinishing && !isDestroyed) finishLocalLogout()
+                }
+            })
+        }
+    }
+
+    private fun finishLocalLogout() {
+        sessionManager.clearSession()
+        openLoginAndClearTask()
     }
 
     private fun configureBottomNavigation(level: Int) {
@@ -183,6 +208,11 @@ class ProfileActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_LEVEL = "level"
+    }
+
+    override fun onDestroy() {
+        logoutCall?.cancel()
+        super.onDestroy()
     }
 
 }

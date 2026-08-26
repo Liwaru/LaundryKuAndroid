@@ -33,22 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     respond(405, false, 'Metode request tidak diizinkan');
 }
 
-$staffId = positiveInteger($_GET['id_user'] ?? null);
-if ($staffId === null) {
-    respond(400, false, 'ID staff tidak valid');
-}
-
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 try {
     $pdo = getDatabaseConnection();
-    // TODO: Replace client id_user with authenticated bearer token identity.
-    $staffStatement = $pdo->prepare('SELECT level, status_akun FROM users WHERE id_user = :id LIMIT 1');
-    $staffStatement->execute(['id' => $staffId]);
-    $staff = $staffStatement->fetch();
-    if (!$staff || (int) $staff['level'] !== 3 || $staff['status_akun'] !== 'aktif') {
-        respond(403, false, 'Akun Staff Laundry tidak valid atau tidak aktif');
-    }
+    requireRole($pdo, [3]);
 
     $statement = $pdo->prepare(
         "SELECT t.id_transaksi, t.kode_transaksi, customer.nama AS nama_pelanggan,

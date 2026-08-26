@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -20,8 +21,8 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
 
 function requestDashboard(int $userId): array
 {
-    $handle = curl_init(BASE_URL . 'owner_dashboard.php?id_user=' . $userId);
-    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10]);
+    $handle = curl_init(BASE_URL . 'owner_dashboard.php');
+    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_HTTPHEADER => testAuthHeaders($userId)]);
     $body = curl_exec($handle);
     if ($body === false) {
         throw new RuntimeException('HTTP request failed: ' . curl_error($handle));
@@ -115,7 +116,7 @@ try {
     foreach ([CUSTOMER_ID, CASHIER_ID, STAFF_ID] as $userId) {
         assertSameValue(403, requestDashboard($userId)['status'], "Forbidden level for user {$userId} was allowed");
     }
-    assertSameValue(403, requestDashboard(999999)['status'], 'Unknown user was allowed');
+    assertSameValue(401, requestDashboard(999999)['status'], 'Unknown user was allowed');
 
     $inactive = $pdo->prepare(
         "INSERT INTO users (nama, no_hp, username, password, level, status_akun)
@@ -128,7 +129,7 @@ try {
         'owner' => OWNER_ID,
     ]);
     $inactiveOwnerId = (int) $pdo->lastInsertId();
-    assertSameValue(403, requestDashboard($inactiveOwnerId)['status'], 'Inactive owner was allowed');
+    assertSameValue(401, requestDashboard($inactiveOwnerId)['status'], 'Inactive owner was allowed');
 
     $customer = $pdo->prepare(
         "INSERT INTO users (nama, no_hp, username, password, level, status_akun)
@@ -174,7 +175,7 @@ try {
         'jumlah_pesanan' => (int) $row['jumlah_pesanan'],
     ], $data['popular_services']), 'Popular-service ranking or deterministic tie-break is wrong');
 
-    echo "PASS: Level 1/2/3, inactive and unknown users receive HTTP 403; active Level 4 receives HTTP 200\n";
+    echo "PASS: Level 1/2/3 receive HTTP 403; inactive/unknown sessions receive HTTP 401; active Level 4 receives HTTP 200\n";
     echo "PASS: summary includes only successful payment today, all orders today, active statuses and every Level 1 user\n";
     echo "PASS: operational counts exclude completed/cancelled transactions\n";
     echo "PASS: popular services count detail rows and sort by usage then name\n";

@@ -27,28 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     respond(405, false, 'Metode request tidak diizinkan');
 }
 
-$cashierId = positiveInteger($_GET['id_user'] ?? null);
-if ($cashierId === null) {
-    respond(400, false, 'ID kasir tidak valid');
-}
-
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 try {
     $pdo = getDatabaseConnection();
 
-    // TODO: Replace client id_user with authenticated bearer-token identity.
-    $cashierStatement = $pdo->prepare(
-        'SELECT id_user, level, status_akun
-         FROM users
-         WHERE id_user = :id_user
-         LIMIT 1'
-    );
-    $cashierStatement->execute(['id_user' => $cashierId]);
-    $cashier = $cashierStatement->fetch();
-    if (!$cashier || (int) $cashier['level'] !== 2 || $cashier['status_akun'] !== 'aktif') {
-        respond(403, false, 'Akun Kasir/Admin tidak valid atau tidak aktif');
-    }
+    requireRole($pdo, [2]);
 
     $totalStatement = $pdo->prepare('SELECT COUNT(*) FROM users WHERE level = 1');
     $totalStatement->execute();

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -18,13 +19,13 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
     }
 }
 
-function request(string $method, string $path, ?array $payload = null): array
+function request(string $method, string $path, ?array $payload = null, int $authUserId = CASHIER_ID): array
 {
     $handle = curl_init(BASE_URL . $path);
     curl_setopt_array($handle, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_HTTPHEADER => testAuthHeaders($authUserId, true),
         CURLOPT_POSTFIELDS => $payload === null ? null : json_encode($payload, JSON_THROW_ON_ERROR),
     ]);
     $body = curl_exec($handle);
@@ -41,7 +42,7 @@ function completionRequest(int $userId, int $transactionId): array
     return request('POST', 'complete_transaction.php', [
         'id_user' => $userId,
         'id_transaksi' => $transactionId,
-    ]);
+    ], $userId);
 }
 
 function concurrentCompletion(int $transactionId): array
@@ -53,7 +54,7 @@ function concurrentCompletion(int $transactionId): array
         curl_setopt_array($handle, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
-            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_HTTPHEADER => testAuthHeaders(CASHIER_ID, true),
             CURLOPT_POSTFIELDS => json_encode([
                 'id_user' => CASHIER_ID,
                 'id_transaksi' => $transactionId,
@@ -229,13 +230,15 @@ try {
     assertSameValue('selesai', transactionRow($pdo, $race)['status_laundry'], 'Race did not complete transaction');
     assertSameValue(2, count(timeline($pdo, $race)), 'Race inserted duplicate completion timeline');
 
-    $customerOrders = request('GET', 'customer_orders.php?id_user=' . CUSTOMER_ID);
+    $customerOrders = request('GET', 'customer_orders.php', null, CUSTOMER_ID);
     assertSameValue(false, containsTransaction($customerOrders['body']['data'], $eligible), 'Completed item remains active');
-    $customerHistory = request('GET', 'customer_history.php?id_user=' . CUSTOMER_ID);
+    $customerHistory = request('GET', 'customer_history.php', null, CUSTOMER_ID);
     assertSameValue(true, containsTransaction($customerHistory['body']['data'], $eligible), 'Completed item missing in history');
     $customerDetail = request(
         'GET',
-        'customer_order_detail.php?id_user=' . CUSTOMER_ID . '&id_transaksi=' . $eligible
+        'customer_order_detail.php?id_transaksi=' . $eligible,
+        null,
+        CUSTOMER_ID
     );
     assertSameValue('selesai', $customerDetail['body']['data']['status_laundry'], 'Customer detail status is stale');
     assertSameValue('sudah_dibayar', $customerDetail['body']['data']['status_pembayaran'], 'Payment status is stale');
@@ -243,9 +246,9 @@ try {
     $customerTimeline = $customerDetail['body']['data']['timeline'];
     assertSameValue('selesai', end($customerTimeline)['status_laundry'], 'Customer timeline is stale');
 
-    $staffHistory = request('GET', 'staff_history.php?id_user=' . STAFF_ID);
+    $staffHistory = request('GET', 'staff_history.php', null, STAFF_ID);
     assertSameValue(true, containsTransaction($staffHistory['body']['data'], $eligible), 'Staff History lost completed item');
-    $cashierTransactions = request('GET', 'cashier_transactions.php?id_user=' . CASHIER_ID);
+    $cashierTransactions = request('GET', 'cashier_transactions.php');
     assertSameValue(true, containsTransaction($cashierTransactions['body']['data'], $eligible), 'Cashier list did not reload completed data');
 
     echo "PASS: eligible paid-ready transaction completes atomically\n";

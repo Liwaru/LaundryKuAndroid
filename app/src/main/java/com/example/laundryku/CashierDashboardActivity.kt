@@ -86,7 +86,7 @@ class CashierDashboardActivity : AppCompatActivity() {
         scroll.visibility = View.INVISIBLE
         errorState.visibility = View.GONE
         loading.visibility = View.VISIBLE
-        dashboardCall = RetrofitClient.apiService.getCashierDashboard(session.getUserId()).also { call ->
+        dashboardCall = RetrofitClient.apiService.getCashierDashboard().also { call ->
             call.enqueue(object : Callback<CashierDashboardResponse> {
                 override fun onResponse(
                     call: Call<CashierDashboardResponse>,

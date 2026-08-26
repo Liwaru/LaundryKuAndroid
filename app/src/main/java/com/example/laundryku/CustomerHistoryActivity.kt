@@ -97,7 +97,7 @@ class CustomerHistoryActivity : AppCompatActivity() {
         totalLaundry.setText(R.string.customer_history_summary_loading)
         totalSpending.setText(R.string.customer_history_summary_loading)
 
-        historyCall = RetrofitClient.apiService.getCustomerHistory(session.getUserId()).also { call ->
+        historyCall = RetrofitClient.apiService.getCustomerHistory().also { call ->
             call.enqueue(object : Callback<CustomerHistoryResponse> {
                 override fun onResponse(call: Call<CustomerHistoryResponse>, response: Response<CustomerHistoryResponse>) {
                     if (isFinishing || isDestroyed) return

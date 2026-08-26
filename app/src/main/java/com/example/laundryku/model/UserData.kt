@@ -3,6 +3,7 @@ package com.example.laundryku.model
 import com.google.gson.annotations.SerializedName
 
 data class UserData(
+    val token: String,
     @SerializedName("id_user") val idUser: Int,
     val nama: String,
     @SerializedName("no_hp") val noHp: String,

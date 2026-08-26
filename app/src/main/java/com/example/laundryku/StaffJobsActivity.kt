@@ -92,7 +92,7 @@ class StaffJobsActivity : AppCompatActivity() {
         errorState.visibility = View.GONE
         emptyState.visibility = View.GONE
         jobsList.removeAllViews()
-        jobsCall = RetrofitClient.apiService.getStaffJobs(session.getUserId()).also { call ->
+        jobsCall = RetrofitClient.apiService.getStaffJobs().also { call ->
             call.enqueue(object : Callback<StaffJobsResponse> {
                 override fun onResponse(call: Call<StaffJobsResponse>, response: Response<StaffJobsResponse>) {
                     if (isFinishing || isDestroyed) return
@@ -184,7 +184,7 @@ class StaffJobsActivity : AppCompatActivity() {
         updatingTransactionId = job.transactionId
         renderJobs()
         updateCall = RetrofitClient.apiService.updateLaundryStatus(
-            UpdateLaundryStatusRequest(session.getUserId(), job.transactionId, job.laundryStatus)
+            UpdateLaundryStatusRequest(job.transactionId, job.laundryStatus)
         ).also { call ->
             call.enqueue(object : Callback<UpdateLaundryStatusResponse> {
                 override fun onResponse(call: Call<UpdateLaundryStatusResponse>, response: Response<UpdateLaundryStatusResponse>) {

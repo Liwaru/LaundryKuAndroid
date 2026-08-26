@@ -99,7 +99,7 @@ class AddStaffActivity : AppCompatActivity() {
 
         setLoading(true)
         createCall = RetrofitClient.apiService.createOwnerStaff(
-            OwnerCreateStaffRequest(session.getUserId(), name, phone, username, password, selectedLevel)
+            OwnerCreateStaffRequest(name, phone, username, password, selectedLevel)
         ).also { call ->
             call.enqueue(object : Callback<OwnerCreateStaffResponse> {
                 override fun onResponse(

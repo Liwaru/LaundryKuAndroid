@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -18,13 +19,13 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
     }
 }
 
-function request(string $method, string $path, ?array $payload = null): array
+function request(string $method, string $path, ?array $payload = null, int $authUserId = STAFF_ID): array
 {
     $handle = curl_init(BASE_URL . $path);
     curl_setopt_array($handle, [
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_CUSTOMREQUEST => $method,
-        CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_HTTPHEADER => testAuthHeaders($authUserId, true),
         CURLOPT_POSTFIELDS => $payload === null ? null : json_encode($payload, JSON_THROW_ON_ERROR),
     ]);
     $body = curl_exec($handle);
@@ -45,7 +46,7 @@ function concurrentUpdates(array $payload): array
         curl_setopt_array($handle, [
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_POST => true,
-            CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+            CURLOPT_HTTPHEADER => testAuthHeaders(STAFF_ID, true),
             CURLOPT_POSTFIELDS => json_encode($payload, JSON_THROW_ON_ERROR),
         ]);
         curl_multi_add_handle($multi, $handle);
@@ -108,7 +109,7 @@ function updateStatus(int $transactionId, int $userId, string $expectedStatus): 
         'id_user' => $userId,
         'id_transaksi' => $transactionId,
         'current_status' => $expectedStatus,
-    ]);
+    ], $userId);
 }
 
 function assertWorkflow(PDO $pdo, int $transactionId, array $expectedTimeline): void
@@ -133,7 +134,7 @@ $fixtureIds = [];
 
 try {
     foreach (['staff_jobs.php', 'staff_history.php', 'staff_dashboard.php'] as $endpoint) {
-        assertSameValue(200, request('GET', $endpoint . '?id_user=' . STAFF_ID)['status'], "{$endpoint} is not active");
+        assertSameValue(200, request('GET', $endpoint)['status'], "{$endpoint} is not active");
     }
 
     $roleFixture = $fixtureIds[] = createFixture($pdo, 1, 'ROLE');
@@ -174,10 +175,10 @@ try {
     ];
     foreach ($workflows as $serviceId => $timeline) {
         $transactionId = $fixtureIds[] = createFixture($pdo, $serviceId, 'S' . $serviceId);
-        $customerBefore = request('GET', 'customer_order_detail.php?id_user=' . CUSTOMER_ID . '&id_transaksi=' . $transactionId);
+        $customerBefore = request('GET', 'customer_order_detail.php?id_transaksi=' . $transactionId, null, CUSTOMER_ID);
         assertSameValue(1, count($customerBefore['body']['data']['timeline']), 'Initial customer timeline is wrong');
         assertWorkflow($pdo, $transactionId, $timeline);
-        $customerAfter = request('GET', 'customer_order_detail.php?id_user=' . CUSTOMER_ID . '&id_transaksi=' . $transactionId);
+        $customerAfter = request('GET', 'customer_order_detail.php?id_transaksi=' . $transactionId, null, CUSTOMER_ID);
         assertSameValue($timeline, array_column($customerAfter['body']['data']['timeline'], 'status_laundry'), 'Customer timeline did not grow');
     }
 

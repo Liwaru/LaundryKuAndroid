@@ -31,29 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     respond(405, false, 'Metode request tidak diizinkan');
 }
 
-$userId = positiveInteger($_GET['id_user'] ?? null);
-if ($userId === null) {
-    respond(400, false, 'ID pelanggan tidak valid');
-}
-
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 try {
     $pdo = getDatabaseConnection();
 
-    // TODO: Setelah autentikasi token tersedia, ambil id_user dari token dan abaikan id_user dari client.
-    $userStatement = $pdo->prepare(
-        'SELECT id_user, level, status_akun
-         FROM users
-         WHERE id_user = :id_user
-         LIMIT 1'
-    );
-    $userStatement->execute(['id_user' => $userId]);
-    $user = $userStatement->fetch();
-
-    if (!$user || (int) $user['level'] !== 1 || $user['status_akun'] !== 'aktif') {
-        respond(403, false, 'Akun pelanggan tidak valid atau tidak aktif');
-    }
+    $user = requireRole($pdo, [1]);
+    $userId = $user['id_user'];
 
     $ordersStatement = $pdo->prepare(
         "SELECT t.id_transaksi, t.kode_transaksi, t.id_pelanggan,

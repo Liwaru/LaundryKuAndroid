@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -20,8 +21,8 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
 
 function requestReport(int $userId, string $period): array
 {
-    $handle = curl_init(BASE_URL . "owner_reports.php?id_user={$userId}&period={$period}");
-    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10]);
+    $handle = curl_init(BASE_URL . "owner_reports.php?period={$period}");
+    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_HTTPHEADER => testAuthHeaders($userId)]);
     $body = curl_exec($handle);
     if ($body === false) {
         throw new RuntimeException('HTTP request failed: ' . curl_error($handle));
@@ -166,7 +167,7 @@ try {
     foreach ([CUSTOMER_ID, CASHIER_ID, STAFF_ID] as $userId) {
         assertSameValue(403, requestReport($userId, 'today')['status'], "Forbidden Level for {$userId} loaded reports");
     }
-    assertSameValue(403, requestReport(999999, 'today')['status'], 'Unknown user loaded reports');
+    assertSameValue(401, requestReport(999999, 'today')['status'], 'Unknown user loaded reports');
 
     $inactive = $pdo->prepare(
         "INSERT INTO users (nama, no_hp, username, password, level, status_akun)
@@ -179,7 +180,7 @@ try {
         'owner' => OWNER_ID,
     ]);
     $inactiveOwnerId = (int) $pdo->lastInsertId();
-    assertSameValue(403, requestReport($inactiveOwnerId, 'today')['status'], 'Inactive Owner loaded reports');
+    assertSameValue(401, requestReport($inactiveOwnerId, 'today')['status'], 'Inactive Owner loaded reports');
 
     $clock = $pdo->query(
         "SELECT NOW() AS now_value,
@@ -290,7 +291,7 @@ try {
     echo "PASS: financial/transaction reports filter and order correctly without multi-detail duplication\n";
     echo "PASS: popular services use transaction entry period and exclude outside-period Bed Cover usage\n";
     echo "PASS: calendar Monday-week and calendar-month boundaries are enforced\n";
-    echo "PASS: invalid period and Level 1/2/3, inactive/unknown Owner are rejected\n";
+    echo "PASS: invalid period, forbidden roles, and inactive/unknown Owner sessions are rejected\n";
 } finally {
     deleteTransactions($pdo, $fixtureIds);
     if ($inactiveOwnerId !== null) {

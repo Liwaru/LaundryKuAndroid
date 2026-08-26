@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -18,13 +19,16 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
     }
 }
 
-function request(string $path, string $method = 'GET', ?array $payload = null): array
+function request(string $path, string $method = 'GET', ?array $payload = null, int $authUserId = OWNER_ID): array
 {
     $handle = curl_init(BASE_URL . $path);
-    $options = [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10];
+    $options = [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_HTTPHEADER => testAuthHeaders($authUserId, $method === 'POST'),
+    ];
     if ($method === 'POST') {
         $options[CURLOPT_POST] = true;
-        $options[CURLOPT_HTTPHEADER] = ['Content-Type: application/json'];
         $options[CURLOPT_POSTFIELDS] = json_encode($payload, JSON_THROW_ON_ERROR);
     }
     curl_setopt_array($handle, $options);
@@ -87,21 +91,21 @@ $pdo = getDatabaseConnection();
 $fixtureUserIds = [];
 
 try {
-    $initial = request('owner_staff.php?id_user=' . OWNER_ID);
+    $initial = request('owner_staff.php');
     assertSameValue(200, $initial['status'], 'Active Owner could not load staff');
     $baseline = $initial['body']['data']['summary'];
     assertSameValue(false, containsKeyRecursively($initial['body'], 'password'), 'Password was exposed by list endpoint');
 
     foreach ([CUSTOMER_ID, CASHIER_ID, STAFF_ID] as $requester) {
-        assertSameValue(403, request('owner_staff.php?id_user=' . $requester)['status'], "Level for {$requester} loaded staff");
+        assertSameValue(403, request('owner_staff.php', 'GET', null, $requester)['status'], "Level for {$requester} loaded staff");
     }
-    assertSameValue(403, request('owner_staff.php?id_user=999999')['status'], 'Unknown user loaded staff');
+    assertSameValue(401, request('owner_staff.php', 'GET', null, 999999)['status'], 'Unknown user loaded staff');
 
     $inactiveOwnerId = $fixtureUserIds[] = createFixtureUser($pdo, OWNER_ID, 4, 'nonaktif', 'Own');
-    assertSameValue(403, request('owner_staff.php?id_user=' . $inactiveOwnerId)['status'], 'Inactive Owner loaded staff');
+    assertSameValue(401, request('owner_staff.php', 'GET', null, $inactiveOwnerId)['status'], 'Inactive Owner loaded staff');
 
     $inactiveCashierId = $fixtureUserIds[] = createFixtureUser($pdo, CASHIER_ID, 2, 'nonaktif', 'Kas');
-    $listWithFixture = request('owner_staff.php?id_user=' . OWNER_ID);
+    $listWithFixture = request('owner_staff.php');
     $summary = $listWithFixture['body']['data']['summary'];
     assertSameValue((int) $baseline['jumlah_kasir'] + 1, $summary['jumlah_kasir'], 'Cashier summary is wrong');
     assertSameValue((int) $baseline['jumlah_staff_laundry'], $summary['jumlah_staff_laundry'], 'Laundry summary changed');
@@ -164,7 +168,8 @@ try {
             '080' . random_int(100000000, 999999999),
             2
         );
-        assertSameValue(403, request('owner_create_staff.php', 'POST', $payload)['status'], "Requester {$requester} created staff");
+        $expected = in_array($requester, [$inactiveOwnerId, 999999], true) ? 401 : 403;
+        assertSameValue($expected, request('owner_create_staff.php', 'POST', $payload, $requester)['status'], "Requester {$requester} created staff");
     }
 
     $passwordStatement = $pdo->prepare('SELECT password, level, status_akun FROM users WHERE id_user = :id');
@@ -177,7 +182,7 @@ try {
         assertSameValue(true, password_verify('Staff123', $created['password']), 'Password hash verification failed');
     }
 
-    $afterCreate = request('owner_staff.php?id_user=' . OWNER_ID)['body']['data'];
+    $afterCreate = request('owner_staff.php')['body']['data'];
     assertSameValue((int) $baseline['jumlah_kasir'] + 2, $afterCreate['summary']['jumlah_kasir'], 'Created cashier not summarized');
     assertSameValue((int) $baseline['jumlah_staff_laundry'] + 1, $afterCreate['summary']['jumlah_staff_laundry'], 'Created laundry staff not summarized');
     assertSameValue((int) $baseline['jumlah_staff_aktif'] + 2, $afterCreate['summary']['jumlah_staff_aktif'], 'Created staff active summary is wrong');

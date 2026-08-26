@@ -55,7 +55,7 @@ class StaffDashboardActivity : AppCompatActivity() {
 
     private fun loadDashboard() {
         dashboardCall?.cancel()
-        dashboardCall = RetrofitClient.apiService.getStaffDashboard(session.getUserId()).also { call ->
+        dashboardCall = RetrofitClient.apiService.getStaffDashboard().also { call ->
             call.enqueue(object : Callback<StaffDashboardResponse> {
                 override fun onResponse(call: Call<StaffDashboardResponse>, response: Response<StaffDashboardResponse>) {
                     if (isFinishing || isDestroyed) return

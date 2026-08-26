@@ -66,7 +66,26 @@ try {
         respond(403, false, 'Role akun tidak valid');
     }
 
+    $pdo->beginTransaction();
+    $revokeStatement = $pdo->prepare(
+        'UPDATE auth_tokens SET revoked_at = NOW()
+         WHERE id_user = :id_user AND revoked_at IS NULL'
+    );
+    $revokeStatement->execute(['id_user' => (int) $user['id_user']]);
+
+    $rawToken = bin2hex(random_bytes(32));
+    $tokenStatement = $pdo->prepare(
+        'INSERT INTO auth_tokens (id_user, token_hash, expires_at)
+         VALUES (:id_user, :token_hash, NOW() + INTERVAL 30 DAY)'
+    );
+    $tokenStatement->execute([
+        'id_user' => (int) $user['id_user'],
+        'token_hash' => hash('sha256', $rawToken),
+    ]);
+    $pdo->commit();
+
     respond(200, true, 'Login berhasil', [
+        'token' => $rawToken,
         'id_user' => (int) $user['id_user'],
         'nama' => $user['nama'],
         'no_hp' => $user['no_hp'],
@@ -74,6 +93,9 @@ try {
         'level' => $level,
     ]);
 } catch (Throwable $exception) {
+    if (isset($pdo) && $pdo->inTransaction()) {
+        $pdo->rollBack();
+    }
     error_log($exception->getMessage());
     respond(500, false, 'Terjadi kesalahan pada server');
 }

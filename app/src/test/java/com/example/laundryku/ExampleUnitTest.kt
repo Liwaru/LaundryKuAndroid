@@ -12,6 +12,7 @@ class ExampleUnitTest {
         (1..4).forEach { level ->
             assertTrue(
                 SessionManager.isValidSessionData(
+                    token = "a".repeat(64),
                     userId = level,
                     name = "User",
                     phone = "081234567890",
@@ -24,11 +25,14 @@ class ExampleUnitTest {
 
     @Test
     fun validSessionData_rejectsCorruptValues() {
-        assertFalse(SessionManager.isValidSessionData(-1, "User", "0812", "user", 1))
-        assertFalse(SessionManager.isValidSessionData(1, "", "0812", "user", 1))
-        assertFalse(SessionManager.isValidSessionData(1, "User", "", "user", 1))
-        assertFalse(SessionManager.isValidSessionData(1, "User", "0812", "", 1))
-        assertFalse(SessionManager.isValidSessionData(1, "User", "0812", "user", 5))
+        val token = "a".repeat(64)
+        assertFalse(SessionManager.isValidSessionData("", 1, "User", "0812", "user", 1))
+        assertFalse(SessionManager.isValidSessionData("not-a-token", 1, "User", "0812", "user", 1))
+        assertFalse(SessionManager.isValidSessionData(token, -1, "User", "0812", "user", 1))
+        assertFalse(SessionManager.isValidSessionData(token, 1, "", "0812", "user", 1))
+        assertFalse(SessionManager.isValidSessionData(token, 1, "User", "", "user", 1))
+        assertFalse(SessionManager.isValidSessionData(token, 1, "User", "0812", "", 1))
+        assertFalse(SessionManager.isValidSessionData(token, 1, "User", "0812", "user", 5))
     }
 
     @Test

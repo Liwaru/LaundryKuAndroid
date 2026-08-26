@@ -112,7 +112,7 @@ class CashierTransactionActivity : AppCompatActivity() {
         transactionList.removeAllViews()
 
         transactionsCall = RetrofitClient.apiService
-            .getCashierTransactions(session.getUserId())
+            .getCashierTransactions()
             .also { call ->
                 call.enqueue(object : Callback<CashierTransactionsResponse> {
                     override fun onResponse(
@@ -265,7 +265,7 @@ class CashierTransactionActivity : AppCompatActivity() {
         confirmingTransactionId = transactionId
         renderTransactions()
         confirmCall = RetrofitClient.apiService.confirmCashPayment(
-            ConfirmCashPaymentRequest(session.getUserId(), transactionId)
+            ConfirmCashPaymentRequest(transactionId)
         ).also { call ->
             call.enqueue(object : Callback<ConfirmCashPaymentResponse> {
                 override fun onResponse(
@@ -323,7 +323,7 @@ class CashierTransactionActivity : AppCompatActivity() {
         completingTransactionId = transactionId
         renderTransactions()
         completeCall = RetrofitClient.apiService.completeTransaction(
-            CompleteTransactionRequest(session.getUserId(), transactionId)
+            CompleteTransactionRequest(transactionId)
         ).also { call ->
             call.enqueue(object : Callback<CompleteTransactionResponse> {
                 override fun onResponse(

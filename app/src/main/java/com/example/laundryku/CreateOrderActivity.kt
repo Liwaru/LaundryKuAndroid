@@ -239,7 +239,7 @@ class CreateOrderActivity : AppCompatActivity() {
     private fun sendOrder(service: ServiceData, quantity: BigDecimal) {
         setSubmitting(true)
         orderCall = RetrofitClient.apiService.createOrder(
-            CreateOrderRequest(session.getUserId(), service.id, quantity.toDouble())
+            CreateOrderRequest(service.id, quantity.toDouble())
         ).also { call ->
             call.enqueue(object : Callback<CreateOrderResponse> {
                 override fun onResponse(call: Call<CreateOrderResponse>, response: Response<CreateOrderResponse>) {

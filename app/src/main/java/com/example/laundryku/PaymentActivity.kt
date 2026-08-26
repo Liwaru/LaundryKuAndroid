@@ -88,7 +88,6 @@ class PaymentActivity : AppCompatActivity() {
         content.visibility = View.GONE
 
         detailCall = RetrofitClient.apiService.getCustomerOrderDetail(
-            session.getUserId(),
             transactionId
         ).also { call ->
             call.enqueue(object : Callback<CustomerOrderDetailResponse> {
@@ -192,7 +191,7 @@ class PaymentActivity : AppCompatActivity() {
         cashSubmitButton.isEnabled = false
 
         cashCall = RetrofitClient.apiService.selectCashPayment(
-            SelectCashPaymentRequest(session.getUserId(), transactionId)
+            SelectCashPaymentRequest(transactionId)
         ).also { call ->
             call.enqueue(object : Callback<CashPaymentResponse> {
                 override fun onResponse(call: Call<CashPaymentResponse>, response: Response<CashPaymentResponse>) {

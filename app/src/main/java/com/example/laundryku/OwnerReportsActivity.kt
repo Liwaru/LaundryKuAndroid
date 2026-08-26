@@ -142,7 +142,6 @@ class OwnerReportsActivity : AppCompatActivity() {
         loading.visibility = View.VISIBLE
         setPeriodTabsEnabled(false)
         reportsCall = RetrofitClient.apiService.getOwnerReports(
-            session.getUserId(),
             requestedPeriod.apiValue
         ).also { call ->
             call.enqueue(object : Callback<OwnerReportsResponse> {

@@ -44,11 +44,10 @@ if (!is_array($payload)) {
     respond(400, false, 'Request JSON tidak valid');
 }
 
-$userId = positiveInteger($payload['id_user'] ?? null);
 $serviceId = positiveInteger($payload['id_layanan'] ?? null);
 $rawQuantity = $payload['qty'] ?? null;
 
-if ($userId === null || $serviceId === null || !is_numeric($rawQuantity)) {
+if ($serviceId === null || !is_numeric($rawQuantity)) {
     respond(400, false, 'Data pesanan tidak valid');
 }
 
@@ -62,26 +61,14 @@ if (abs($quantity - round($quantity, 2)) > 0.000001) {
 }
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 $pdo = null;
 try {
     $pdo = getDatabaseConnection();
+    $user = requireRole($pdo, [1]);
+    $userId = $user['id_user'];
     $pdo->beginTransaction();
-
-    $userStatement = $pdo->prepare(
-        'SELECT id_user, level, status_akun
-         FROM users
-         WHERE id_user = :id_user
-         LIMIT 1
-         FOR UPDATE'
-    );
-    $userStatement->execute(['id_user' => $userId]);
-    $user = $userStatement->fetch();
-
-    if (!$user || (int) $user['level'] !== 1 || $user['status_akun'] !== 'aktif') {
-        $pdo->rollBack();
-        respond(403, false, 'Akun pelanggan tidak valid atau tidak aktif');
-    }
 
     $serviceStatement = $pdo->prepare(
         'SELECT id_layanan, harga, satuan, minimal_order, estimasi_hari

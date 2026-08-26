@@ -133,6 +133,7 @@ class MainActivity : AppCompatActivity() {
                             ).show()
                             return
                         }
+                        RetrofitClient.onLoginSucceeded()
                         Toast.makeText(this@MainActivity, body.message, Toast.LENGTH_SHORT).show()
                         if (!routeToDashboard(user.level)) sessionManager.clearSession()
                     } else {

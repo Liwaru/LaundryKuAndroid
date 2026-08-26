@@ -101,7 +101,7 @@ class CustomerOrdersActivity : AppCompatActivity() {
         emptyState.visibility = View.GONE
         ordersList.removeAllViews()
 
-        ordersCall = RetrofitClient.apiService.getCustomerOrders(session.getUserId()).also { call ->
+        ordersCall = RetrofitClient.apiService.getCustomerOrders().also { call ->
             call.enqueue(object : Callback<CustomerOrdersResponse> {
                 override fun onResponse(
                     call: Call<CustomerOrdersResponse>,

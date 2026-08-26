@@ -27,6 +27,7 @@ import com.example.laundryku.model.OwnerCreateStaffRequest
 import com.example.laundryku.model.OwnerCreateStaffResponse
 import com.example.laundryku.model.OwnerStaffResponse
 import com.example.laundryku.model.OwnerReportsResponse
+import com.example.laundryku.model.LogoutResponse
 import com.example.laundryku.model.UpdateLaundryStatusRequest
 import com.example.laundryku.model.UpdateLaundryStatusResponse
 import retrofit2.Call
@@ -42,6 +43,9 @@ interface ApiService {
     @POST("api/register.php")
     fun register(@Body request: RegisterRequest): Call<RegisterResponse>
 
+    @POST("api/logout.php")
+    fun logout(): Call<LogoutResponse>
+
     @GET("api/layanan.php")
     fun getServices(): Call<ServicesResponse>
 
@@ -49,14 +53,13 @@ interface ApiService {
     fun createOrder(@Body request: CreateOrderRequest): Call<CreateOrderResponse>
 
     @GET("api/customer_orders.php")
-    fun getCustomerOrders(@Query("id_user") userId: Int): Call<CustomerOrdersResponse>
+    fun getCustomerOrders(): Call<CustomerOrdersResponse>
 
     @GET("api/customer_history.php")
-    fun getCustomerHistory(@Query("id_user") userId: Int): Call<CustomerHistoryResponse>
+    fun getCustomerHistory(): Call<CustomerHistoryResponse>
 
     @GET("api/customer_order_detail.php")
     fun getCustomerOrderDetail(
-        @Query("id_user") userId: Int,
         @Query("id_transaksi") transactionId: Int
     ): Call<CustomerOrderDetailResponse>
 
@@ -64,7 +67,7 @@ interface ApiService {
     fun selectCashPayment(@Body request: SelectCashPaymentRequest): Call<CashPaymentResponse>
 
     @GET("api/cashier_transactions.php")
-    fun getCashierTransactions(@Query("id_user") userId: Int): Call<CashierTransactionsResponse>
+    fun getCashierTransactions(): Call<CashierTransactionsResponse>
 
     @POST("api/confirm_cash_payment.php")
     fun confirmCashPayment(
@@ -77,28 +80,27 @@ interface ApiService {
     ): Call<CompleteTransactionResponse>
 
     @GET("api/cashier_dashboard.php")
-    fun getCashierDashboard(@Query("id_user") userId: Int): Call<CashierDashboardResponse>
+    fun getCashierDashboard(): Call<CashierDashboardResponse>
 
     @GET("api/owner_dashboard.php")
-    fun getOwnerDashboard(@Query("id_user") userId: Int): Call<OwnerDashboardResponse>
+    fun getOwnerDashboard(): Call<OwnerDashboardResponse>
 
     @GET("api/owner_staff.php")
-    fun getOwnerStaff(@Query("id_user") userId: Int): Call<OwnerStaffResponse>
+    fun getOwnerStaff(): Call<OwnerStaffResponse>
 
     @POST("api/owner_create_staff.php")
     fun createOwnerStaff(@Body request: OwnerCreateStaffRequest): Call<OwnerCreateStaffResponse>
 
     @GET("api/owner_reports.php")
     fun getOwnerReports(
-        @Query("id_user") userId: Int,
         @Query("period") period: String
     ): Call<OwnerReportsResponse>
 
     @GET("api/cashier_customers.php")
-    fun getCashierCustomers(@Query("id_user") userId: Int): Call<CashierCustomersResponse>
+    fun getCashierCustomers(): Call<CashierCustomersResponse>
 
     @GET("api/staff_jobs.php")
-    fun getStaffJobs(@Query("id_user") userId: Int): Call<StaffJobsResponse>
+    fun getStaffJobs(): Call<StaffJobsResponse>
 
     @POST("api/update_laundry_status.php")
     fun updateLaundryStatus(
@@ -106,8 +108,8 @@ interface ApiService {
     ): Call<UpdateLaundryStatusResponse>
 
     @GET("api/staff_history.php")
-    fun getStaffHistory(@Query("id_user") userId: Int): Call<StaffHistoryResponse>
+    fun getStaffHistory(): Call<StaffHistoryResponse>
 
     @GET("api/staff_dashboard.php")
-    fun getStaffDashboard(@Query("id_user") userId: Int): Call<StaffDashboardResponse>
+    fun getStaffDashboard(): Call<StaffDashboardResponse>
 }

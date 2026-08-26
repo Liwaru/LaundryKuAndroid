@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -20,8 +21,8 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
 
 function requestCustomers(int $userId): array
 {
-    $handle = curl_init(BASE_URL . 'cashier_customers.php?id_user=' . $userId);
-    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10]);
+    $handle = curl_init(BASE_URL . 'cashier_customers.php');
+    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_HTTPHEADER => testAuthHeaders($userId)]);
     $body = curl_exec($handle);
     if ($body === false) {
         throw new RuntimeException('HTTP request failed: ' . curl_error($handle));
@@ -123,7 +124,7 @@ try {
     foreach ([CUSTOMER_ID, STAFF_ID, OWNER_ID] as $forbiddenUser) {
         assertSameValue(403, requestCustomers($forbiddenUser)['status'], "Role {$forbiddenUser} was allowed");
     }
-    assertSameValue(403, requestCustomers(999999)['status'], 'Unknown user was allowed');
+    assertSameValue(401, requestCustomers(999999)['status'], 'Unknown user was allowed');
 
     $stamp = random_int(1000, 9999);
     $inactiveCashier = $fixtureUserIds[] = insertUser(
@@ -134,7 +135,7 @@ try {
         2,
         'nonaktif'
     );
-    assertSameValue(403, requestCustomers($inactiveCashier)['status'], 'Inactive cashier was allowed');
+    assertSameValue(401, requestCustomers($inactiveCashier)['status'], 'Inactive cashier was allowed');
 
     $customerA = $fixtureUserIds[] = insertUser(
         $pdo,
@@ -180,7 +181,7 @@ try {
     echo "PASS: only Level 1 accounts are returned and total includes active/nonactive customers\n";
     echo "PASS: active, completed and cancelled transactions count by id_pelanggan\n";
     echo "PASS: customer without transactions returns zero and list is ordered by name\n";
-    echo "PASS: Level 1/3/4, inactive cashier and unknown user receive HTTP 403\n";
+    echo "PASS: Level 1/3/4 receive HTTP 403; inactive and unknown sessions receive HTTP 401\n";
     echo "PASS: empty database state returns zero/list and password is never exposed\n";
 } finally {
     if ($fixtureTransactionIds !== []) {

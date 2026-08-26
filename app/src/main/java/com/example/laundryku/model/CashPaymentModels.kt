@@ -3,7 +3,6 @@ package com.example.laundryku.model
 import com.google.gson.annotations.SerializedName
 
 data class SelectCashPaymentRequest(
-    @SerializedName("id_user") val userId: Int,
     @SerializedName("id_transaksi") val transactionId: Int
 )
 

@@ -82,7 +82,7 @@ class StaffHistoryActivity : AppCompatActivity() {
         errorState.visibility = View.GONE
         emptyState.visibility = View.GONE
         historyList.removeAllViews()
-        historyCall = RetrofitClient.apiService.getStaffHistory(session.getUserId()).also { call ->
+        historyCall = RetrofitClient.apiService.getStaffHistory().also { call ->
             call.enqueue(object : Callback<StaffHistoryResponse> {
                 override fun onResponse(call: Call<StaffHistoryResponse>, response: Response<StaffHistoryResponse>) {
                     if (isFinishing || isDestroyed) return

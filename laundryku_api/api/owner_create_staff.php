@@ -35,25 +35,13 @@ if (!is_array($payload)) {
     respond(400, false, 'Request JSON tidak valid');
 }
 
-$ownerId = positiveInteger($payload['id_user'] ?? null);
-if ($ownerId === null) {
-    respond(400, false, 'ID owner tidak valid');
-}
-
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 try {
     $pdo = getDatabaseConnection();
 
-    // TODO: Replace client id_user with authenticated bearer-token identity.
-    $ownerStatement = $pdo->prepare(
-        'SELECT id_user, level, status_akun FROM users WHERE id_user = :id_user LIMIT 1'
-    );
-    $ownerStatement->execute(['id_user' => $ownerId]);
-    $owner = $ownerStatement->fetch();
-    if (!$owner || (int) $owner['level'] !== 4 || $owner['status_akun'] !== 'aktif') {
-        respond(403, false, 'Akun Owner tidak valid atau tidak aktif');
-    }
+    requireRole($pdo, [4]);
 
     $nama = trim((string) ($payload['nama'] ?? ''));
     $noHp = trim((string) ($payload['no_hp'] ?? ''));

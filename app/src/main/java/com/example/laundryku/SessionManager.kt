@@ -10,7 +10,7 @@ class SessionManager(context: Context) {
     )
 
     fun saveLoginSession(user: UserData): Boolean {
-        if (!isValidSessionData(user.idUser, user.nama, user.noHp, user.username, user.level)) {
+        if (!isValidSessionData(user.token, user.idUser, user.nama, user.noHp, user.username, user.level)) {
             clearSession()
             return false
         }
@@ -20,6 +20,8 @@ class SessionManager(context: Context) {
             .putString(KEY_PHONE, user.noHp)
             .putString(KEY_USERNAME, user.username)
             .putInt(KEY_LEVEL, user.level)
+            // Bearer token is a credential: keep it only in MODE_PRIVATE storage and never log it.
+            .putString(KEY_AUTH_TOKEN, user.token)
             .putBoolean(KEY_IS_LOGGED_IN, true)
             .commit()
     }
@@ -27,6 +29,7 @@ class SessionManager(context: Context) {
     fun isLoggedIn(): Boolean {
         if (!preferences.getBoolean(KEY_IS_LOGGED_IN, false)) return false
         val valid = isValidSessionData(
+            getAuthToken(),
             getUserId(),
             getNama(),
             getNoHp(),
@@ -47,6 +50,8 @@ class SessionManager(context: Context) {
 
     fun getLevel(): Int = preferences.getInt(KEY_LEVEL, INVALID_LEVEL)
 
+    fun getAuthToken(): String = preferences.getString(KEY_AUTH_TOKEN, "").orEmpty()
+
     fun clearSession() {
         preferences.edit().clear().commit()
     }
@@ -58,17 +63,20 @@ class SessionManager(context: Context) {
         private const val KEY_PHONE = "no_hp"
         private const val KEY_USERNAME = "username"
         private const val KEY_LEVEL = "level"
+        private const val KEY_AUTH_TOKEN = "auth_token"
         private const val KEY_IS_LOGGED_IN = "is_logged_in"
         private const val INVALID_USER_ID = -1
         private const val INVALID_LEVEL = -1
 
         fun isValidSessionData(
+            token: String,
             userId: Int,
             name: String,
             phone: String,
             username: String,
             level: Int
-        ): Boolean = userId > 0 &&
+        ): Boolean = token.matches(Regex("^[a-fA-F0-9]{64}$")) &&
+            userId > 0 &&
             name.isNotBlank() &&
             phone.isNotBlank() &&
             username.isNotBlank() &&

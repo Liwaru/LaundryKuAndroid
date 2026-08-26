@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/auth_test_helper.php';
 
 const BASE_URL = 'http://127.0.0.1/laundryku_api/api/';
 const CUSTOMER_ID = 1;
@@ -20,8 +21,8 @@ function assertSameValue(mixed $expected, mixed $actual, string $message): void
 
 function requestDashboard(int $userId): array
 {
-    $handle = curl_init(BASE_URL . 'cashier_dashboard.php?id_user=' . $userId);
-    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10]);
+    $handle = curl_init(BASE_URL . 'cashier_dashboard.php');
+    curl_setopt_array($handle, [CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 10, CURLOPT_HTTPHEADER => testAuthHeaders($userId)]);
     $body = curl_exec($handle);
     if ($body === false) {
         throw new RuntimeException('HTTP request failed: ' . curl_error($handle));
@@ -106,7 +107,7 @@ try {
     foreach ([CUSTOMER_ID, STAFF_ID, OWNER_ID] as $userId) {
         assertSameValue(403, requestDashboard($userId)['status'], "Forbidden level for user {$userId} was allowed");
     }
-    assertSameValue(403, requestDashboard(999999)['status'], 'Unknown user was allowed');
+    assertSameValue(401, requestDashboard(999999)['status'], 'Unknown user was allowed');
 
     $inactiveName = 'Dash Test';
     $inactiveUsername = 'dash' . random_int(1000, 9999);
@@ -123,7 +124,7 @@ try {
         'cashier' => CASHIER_ID,
     ]);
     $inactiveUserId = (int) $pdo->lastInsertId();
-    assertSameValue(403, requestDashboard($inactiveUserId)['status'], 'Inactive cashier was allowed');
+    assertSameValue(401, requestDashboard($inactiveUserId)['status'], 'Inactive cashier was allowed');
 
     $fixtureIds[] = createTransaction($pdo, 'WAIT', 'menunggu', 'belum_dibayar', 'menunggu', 10000);
     $fixtureIds[] = createTransaction($pdo, 'WASH', 'dicuci', 'sudah_dibayar', 'berhasil', 20000);
@@ -164,7 +165,7 @@ try {
     echo "PASS: summary follows active, unpaid, ready, today and paid-today definitions\n";
     echo "PASS: waiting/failed/yesterday payments are excluded from today's income\n";
     echo "PASS: recent list is limited to five and multi-detail transactions are not duplicated\n";
-    echo "PASS: Level 1/3/4, inactive and unknown users receive HTTP 403\n";
+    echo "PASS: Level 1/3/4 receive HTTP 403; inactive and unknown sessions receive HTTP 401\n";
 } finally {
     if ($fixtureIds !== []) {
         $placeholders = implode(',', array_fill(0, count($fixtureIds), '?'));

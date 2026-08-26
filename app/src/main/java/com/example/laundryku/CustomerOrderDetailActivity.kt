@@ -85,7 +85,6 @@ class CustomerOrderDetailActivity : AppCompatActivity() {
         content.visibility = View.GONE
 
         detailCall = RetrofitClient.apiService.getCustomerOrderDetail(
-            session.getUserId(),
             transactionId
         ).also { call ->
             call.enqueue(object : Callback<CustomerOrderDetailResponse> {

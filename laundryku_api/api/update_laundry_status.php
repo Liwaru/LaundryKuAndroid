@@ -33,31 +33,22 @@ if (!is_array($payload)) {
     respond(400, false, 'Request JSON tidak valid');
 }
 
-$staffId = positiveInteger($payload['id_user'] ?? null);
 $transactionId = positiveInteger($payload['id_transaksi'] ?? null);
 $expectedStatus = is_string($payload['current_status'] ?? null) ? $payload['current_status'] : null;
 $validExpectedStatuses = ['menunggu', 'dicuci', 'dikeringkan', 'disetrika', 'dipacking'];
-if ($staffId === null || $transactionId === null || !in_array($expectedStatus, $validExpectedStatuses, true)) {
+if ($transactionId === null || !in_array($expectedStatus, $validExpectedStatuses, true)) {
     respond(400, false, 'Data update status tidak valid');
 }
 
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../config/auth.php';
 
 $pdo = null;
 try {
     $pdo = getDatabaseConnection();
+    $staff = requireRole($pdo, [3]);
+    $staffId = $staff['id_user'];
     $pdo->beginTransaction();
-
-    // TODO: Replace client id_user with authenticated bearer token identity.
-    $staffStatement = $pdo->prepare(
-        'SELECT level, status_akun FROM users WHERE id_user = :id LIMIT 1 FOR UPDATE'
-    );
-    $staffStatement->execute(['id' => $staffId]);
-    $staff = $staffStatement->fetch();
-    if (!$staff || (int) $staff['level'] !== 3 || $staff['status_akun'] !== 'aktif') {
-        $pdo->rollBack();
-        respond(403, false, 'Hanya Staff Laundry aktif yang dapat memperbarui status');
-    }
 
     $transactionStatement = $pdo->prepare(
         'SELECT id_transaksi, status_laundry FROM transaksi WHERE id_transaksi = :id LIMIT 1 FOR UPDATE'

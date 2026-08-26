@@ -113,7 +113,7 @@ class OwnerStaffActivity : AppCompatActivity() {
         scroll.visibility = View.INVISIBLE
         loading.visibility = View.VISIBLE
         errorState.visibility = View.GONE
-        staffCall = RetrofitClient.apiService.getOwnerStaff(session.getUserId()).also { call ->
+        staffCall = RetrofitClient.apiService.getOwnerStaff().also { call ->
             call.enqueue(object : Callback<OwnerStaffResponse> {
                 override fun onResponse(
                     call: Call<OwnerStaffResponse>,

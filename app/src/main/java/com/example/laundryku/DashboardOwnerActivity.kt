@@ -84,7 +84,7 @@ class DashboardOwnerActivity : AppCompatActivity() {
         scroll.visibility = View.INVISIBLE
         errorState.visibility = View.GONE
         loading.visibility = View.VISIBLE
-        dashboardCall = RetrofitClient.apiService.getOwnerDashboard(session.getUserId()).also { call ->
+        dashboardCall = RetrofitClient.apiService.getOwnerDashboard().also { call ->
             call.enqueue(object : Callback<OwnerDashboardResponse> {
                 override fun onResponse(
                     call: Call<OwnerDashboardResponse>,

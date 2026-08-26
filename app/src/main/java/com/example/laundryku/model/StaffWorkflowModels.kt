@@ -30,7 +30,6 @@ data class StaffJobDetail(
 )
 
 data class UpdateLaundryStatusRequest(
-    @SerializedName("id_user") val staffId: Int,
     @SerializedName("id_transaksi") val transactionId: Int,
     @SerializedName("current_status") val currentStatus: String
 )

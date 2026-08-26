@@ -28,7 +28,6 @@ data class CashierTransactionData(
 )
 
 data class ConfirmCashPaymentRequest(
-    @SerializedName("id_user") val cashierId: Int,
     @SerializedName("id_transaksi") val transactionId: Int
 )
 
@@ -47,7 +46,6 @@ data class ConfirmCashPaymentData(
 )
 
 data class CompleteTransactionRequest(
-    @SerializedName("id_user") val cashierId: Int,
     @SerializedName("id_transaksi") val transactionId: Int
 )
 
