@@ -18,6 +18,7 @@ import com.example.laundryku.model.ConfirmCashPaymentResponse
 import com.example.laundryku.model.CompleteTransactionRequest
 import com.example.laundryku.model.CompleteTransactionResponse
 import com.example.laundryku.model.CashierDashboardResponse
+import com.example.laundryku.model.CashierCustomersResponse
 import com.example.laundryku.model.StaffDashboardResponse
 import com.example.laundryku.model.StaffHistoryResponse
 import com.example.laundryku.model.StaffJobsResponse
@@ -72,6 +73,9 @@ interface ApiService {
 
     @GET("api/cashier_dashboard.php")
     fun getCashierDashboard(@Query("id_user") userId: Int): Call<CashierDashboardResponse>
+
+    @GET("api/cashier_customers.php")
+    fun getCashierCustomers(@Query("id_user") userId: Int): Call<CashierCustomersResponse>
 
     @GET("api/staff_jobs.php")
     fun getStaffJobs(@Query("id_user") userId: Int): Call<StaffJobsResponse>
