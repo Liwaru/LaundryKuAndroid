@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ownerDashboardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/owner_background"
+    tools:context=".DashboardOwnerActivity">
+
+    <LinearLayout
+        android:id="@+id/ownerDashboardHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_dashboard_brand_logo"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/laundry_logo_description"
+                    android:src="@drawable/ic_laundry_white" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/app_name"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/ownerGreetingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/owner_greeting"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_dashboard_profile"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/profile_description"
+                    android:src="@drawable/ic_person" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/ownerBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerDashboardHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="28dp">
+
+            <TextView style="@style/DashboardSectionTitle" android:text="@string/owner_business_summary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerSummaryCard"
+                    android:layout_marginEnd="6dp">
+                    <LinearLayout style="@style/OwnerSummaryContent">
+                        <FrameLayout style="@style/OwnerIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_revenue_today" android:src="@drawable/ic_owner_wallet" />
+                        </FrameLayout>
+                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_revenue_value" />
+                        <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_revenue_today" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerSummaryCard"
+                    android:layout_marginStart="6dp">
+                    <LinearLayout style="@style/OwnerSummaryContent">
+                        <FrameLayout style="@style/OwnerIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_transactions_today" android:src="@drawable/ic_owner_receipt" />
+                        </FrameLayout>
+                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_transactions_value" />
+                        <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_transactions_today" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerSummaryCard"
+                    android:layout_marginEnd="6dp">
+                    <LinearLayout style="@style/OwnerSummaryContent">
+                        <FrameLayout style="@style/OwnerIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_active_orders" android:src="@drawable/ic_owner_active_order" />
+                        </FrameLayout>
+                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_active_orders_value" />
+                        <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_active_orders" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerSummaryCard"
+                    android:layout_marginStart="6dp">
+                    <LinearLayout style="@style/OwnerSummaryContent">
+                        <FrameLayout style="@style/OwnerIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_total_customers" android:src="@drawable/ic_owner_users" />
+                        </FrameLayout>
+                        <TextView style="@style/OwnerSummaryValue" android:text="@string/owner_total_customers_value" />
+                        <TextView style="@style/OwnerSummaryLabel" android:text="@string/owner_total_customers" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                style="@style/DashboardSectionTitle"
+                android:layout_marginTop="26dp"
+                android:text="@string/owner_main_menu" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginEnd="6dp">
+                    <LinearLayout style="@style/CashierQuickContent">
+                        <FrameLayout style="@style/CashierQuickIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_financial_report" android:src="@drawable/ic_owner_chart" />
+                        </FrameLayout>
+                        <TextView style="@style/CashierQuickLabel" android:text="@string/owner_financial_report" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginStart="6dp">
+                    <LinearLayout style="@style/CashierQuickContent">
+                        <FrameLayout style="@style/CashierQuickIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_transaction_report" android:src="@drawable/ic_owner_transaction_report" />
+                        </FrameLayout>
+                        <TextView style="@style/CashierQuickLabel" android:text="@string/owner_transaction_report" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginEnd="6dp">
+                    <LinearLayout style="@style/CashierQuickContent">
+                        <FrameLayout style="@style/CashierQuickIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_customer_data" android:src="@drawable/ic_owner_customer_data" />
+                        </FrameLayout>
+                        <TextView style="@style/CashierQuickLabel" android:text="@string/owner_customer_data" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginStart="6dp">
+                    <LinearLayout style="@style/CashierQuickContent">
+                        <FrameLayout style="@style/CashierQuickIconBackground">
+                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_staff_data" android:src="@drawable/ic_owner_staff" />
+                        </FrameLayout>
+                        <TextView style="@style/CashierQuickLabel" android:text="@string/owner_staff_data" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                style="@style/DashboardSectionTitle"
+                android:layout_marginTop="26dp"
+                android:text="@string/owner_best_services" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="52dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_one" />
+                        <TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_iron" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="52dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_two" />
+                        <TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_dry" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="52dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_three" />
+                        <TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_express" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="52dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerRankNumber" android:text="@string/owner_rank_four" />
+                        <TextView style="@style/OwnerListLabel" android:layout_marginStart="12dp" android:text="@string/service_bed_cover" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/DashboardSectionTitle"
+                android:layout_marginTop="26dp"
+                android:text="@string/owner_operational_status" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="46dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerListLabel" android:text="@string/staff_status_washing" />
+                        <TextView style="@style/OwnerOperationalCount" android:text="@string/owner_washing_count" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="46dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerListLabel" android:text="@string/staff_status_drying" />
+                        <TextView style="@style/OwnerOperationalCount" android:text="@string/owner_drying_count" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="46dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerListLabel" android:text="@string/staff_status_ironing" />
+                        <TextView style="@style/OwnerOperationalCount" android:text="@string/owner_ironing_count" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="46dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerListLabel" android:text="@string/staff_status_packing" />
+                        <TextView style="@style/OwnerOperationalCount" android:text="@string/owner_packing_count" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="46dp" android:gravity="center_vertical" android:orientation="horizontal">
+                        <TextView style="@style/OwnerListLabel" android:text="@string/staff_status_ready" />
+                        <TextView style="@style/OwnerOperationalCount" android:text="@string/owner_ready_count" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ownerBottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout android:id="@+id/ownerNavHome" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_home" android:src="@drawable/ic_home" />
+            <TextView style="@style/DashboardNavLabel.Active" android:text="@string/nav_home" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ownerNavReports" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/owner_nav_reports" android:src="@drawable/ic_owner_chart" app:tint="@color/dashboard_nav_inactive" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/owner_nav_reports" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/ownerNavStaff" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/owner_nav_staff" android:src="@drawable/ic_owner_staff" app:tint="@color/dashboard_nav_inactive" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/owner_nav_staff" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ownerNavProfile"
+            style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_profile" android:src="@drawable/ic_profile_nav" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/nav_profile" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

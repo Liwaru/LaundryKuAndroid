@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="@color/laundry_on_primary"
+        android:pathData="M12,4 L36,4 Q40,4 40,8 L40,40 Q40,44 36,44 L12,44 Q8,44 8,40 L8,8 Q8,4 12,4 Z" />
+    <path
+        android:fillColor="@color/laundry_primary"
+        android:pathData="M8,13 L40,13 L40,16 L8,16 Z" />
+    <path
+        android:fillColor="@color/laundry_primary"
+        android:pathData="M14,8 A2,2 0,1 0,18 8 A2,2 0,1 0,14 8" />
+    <path
+        android:fillColor="@color/laundry_primary"
+        android:pathData="M21,8 A2,2 0,1 0,25 8 A2,2 0,1 0,21 8" />
+    <path
+        android:fillColor="@color/laundry_primary"
+        android:pathData="M14,29 A10,10 0,1 0,34 29 A10,10 0,1 0,14 29" />
+    <path
+        android:fillColor="@color/laundry_hero_text_secondary"
+        android:pathData="M18,29 A6,6 0,1 0,30 29 A6,6 0,1 0,18 29" />
+</vector>

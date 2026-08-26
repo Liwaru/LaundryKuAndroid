@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/paymentMethodCard"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginTop="10dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/laundry_surface"
+    app:cardCornerRadius="14dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/dashboard_divider"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingEnd="12dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@null"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_payment"
+            app:tint="@color/laundry_primary" />
+
+        <TextView
+            android:id="@+id/paymentMethodName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/laundry_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/paymentMethodAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/laundry_text_secondary"
+            android:textSize="11sp" />
+
+        <RadioButton
+            android:id="@+id/paymentMethodRadio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:buttonTint="@color/laundry_primary"
+            android:clickable="false"
+            android:focusable="false" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

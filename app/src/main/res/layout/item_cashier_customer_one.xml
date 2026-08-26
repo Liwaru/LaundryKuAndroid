@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ProfileCard">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+            <FrameLayout android:layout_width="42dp" android:layout_height="42dp" android:background="@drawable/bg_dashboard_profile" android:padding="9dp">
+                <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/cashier_customer_one_name" android:src="@drawable/ic_person" />
+            </FrameLayout>
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:fontFamily="sans-serif-medium" android:text="@string/cashier_customer_one_name" android:textColor="@color/laundry_text_primary" android:textSize="18sp" android:textStyle="bold" />
+            <TextView style="@style/CashierCustomerTransactionBadge" android:text="@string/cashier_customer_one_transactions" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:orientation="horizontal">
+            <TextView style="@style/CashierCustomerInfoLabel" android:text="@string/cashier_customer_username_label" />
+            <TextView style="@style/CashierCustomerInfoValue" android:text="@string/cashier_customer_one_username" />
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:orientation="horizontal">
+            <TextView style="@style/CashierCustomerInfoLabel" android:text="@string/cashier_customer_phone_label" />
+            <TextView style="@style/CashierCustomerInfoValue" android:text="@string/cashier_customer_one_phone" />
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="44dp" android:layout_marginTop="14dp" android:text="@string/detail_order" android:textAllCaps="false" android:textColor="@color/laundry_primary" android:textSize="13sp" app:cornerRadius="12dp" app:strokeColor="@color/laundry_primary" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

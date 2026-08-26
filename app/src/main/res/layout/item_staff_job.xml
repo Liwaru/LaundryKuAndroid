@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ProfileCard"
+    android:layout_marginTop="14dp">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="18dp">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:orientation="horizontal">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:id="@+id/staffJobCode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:fontFamily="sans-serif-medium" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
+                <TextView android:id="@+id/staffJobCustomer" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:fontFamily="sans-serif-medium" android:textColor="@color/laundry_text_primary" android:textSize="18sp" android:textStyle="bold" />
+            </LinearLayout>
+            <TextView android:id="@+id/staffJobStatus" style="@style/CustomerOrderStatusBadge" />
+        </LinearLayout>
+        <TextView android:id="@+id/staffJobDetail" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="13dp" android:textColor="@color/laundry_text_secondary" android:textSize="14sp" />
+        <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="14dp" android:background="@color/dashboard_divider" />
+        <TextView style="@style/CustomerOrderInfoLabel" android:layout_marginTop="13dp" android:text="@string/staff_jobs_estimate_label" />
+        <TextView android:id="@+id/staffJobEstimate" style="@style/CustomerOrderInfoValue" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="15dp" android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton android:id="@+id/staffJobUpdateButton" android:layout_width="0dp" android:layout_height="46dp" android:layout_marginEnd="5dp" android:layout_weight="1.1" android:text="@string/staff_jobs_update_status" android:textAllCaps="false" android:textColor="@color/laundry_on_primary" android:textSize="12sp" app:backgroundTint="@color/laundry_primary" app:cornerRadius="12dp" app:elevation="0dp" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/staffJobDetailButton" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_height="46dp" android:layout_marginStart="5dp" android:layout_weight="1" android:text="@string/detail_order" android:textAllCaps="false" android:textColor="@color/laundry_primary" android:textSize="12sp" app:cornerRadius="12dp" app:strokeColor="@color/laundry_primary" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

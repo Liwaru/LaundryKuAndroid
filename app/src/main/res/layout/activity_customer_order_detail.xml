@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/orderDetailRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dashboard_background"
+    tools:context=".CustomerOrderDetailActivity">
+
+    <LinearLayout
+        android:id="@+id/orderDetailHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/orderDetailBackButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/profile_back_description"
+            android:padding="12dp"
+            app:srcCompat="@drawable/ic_back"
+            app:tint="@color/laundry_text_primary" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/order_detail_title"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/orderDetailHeaderCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/order_detail_loading_code"
+                android:textColor="@color/laundry_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/orderDetailLoading"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:indeterminateTint="@color/laundry_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orderDetailHeader" />
+
+    <LinearLayout
+        android:id="@+id/orderDetailErrorState"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orderDetailHeader">
+
+        <TextView
+            android:id="@+id/orderDetailErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/order_detail_load_error"
+            android:textColor="@color/laundry_text_secondary"
+            android:textSize="14sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/orderDetailRetryButton"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginTop="4dp"
+            android:text="@string/create_order_retry"
+            android:textAllCaps="false"
+            android:textColor="@color/laundry_primary" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/orderDetailScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orderDetailHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="32dp">
+
+            <com.google.android.material.card.MaterialCardView style="@style/CustomerOrderCard">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView style="@style/DashboardSectionTitle" android:text="@string/order_detail_information" />
+                    <LinearLayout
+                        android:id="@+id/orderDetailLines"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/dashboard_divider" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="@string/order_detail_total"
+                            android:textColor="@color/laundry_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/orderDetailTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:textColor="@color/laundry_primary_dark"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CustomerOrderCard"
+                android:layout_marginTop="14dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView style="@style/DashboardSectionTitle" android:text="@string/order_detail_order_status" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/order_detail_laundry_status" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
+                        <TextView android:id="@+id/orderDetailLaundryStatus" style="@style/CustomerOrderStatusBadge" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/order_detail_payment_status" android:textColor="@color/laundry_text_secondary" android:textSize="13sp" />
+                        <TextView android:id="@+id/orderDetailPaymentStatus" style="@style/CustomerOrderStatusBadge" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/orderDetailPaymentInformation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:background="@drawable/bg_order_status_waiting"
+                        android:lineSpacingExtra="2dp"
+                        android:padding="12dp"
+                        android:text="@string/order_detail_cash_pending"
+                        android:textColor="@color/order_waiting"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/orderDetailPayButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/order_detail_pay_now"
+                        android:textAllCaps="false"
+                        android:textColor="@color/laundry_on_primary"
+                        android:textSize="15sp"
+                        android:visibility="gone"
+                        app:backgroundTint="@color/laundry_primary"
+                        app:cornerRadius="14dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CustomerOrderCard"
+                android:layout_marginTop="14dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView style="@style/DashboardSectionTitle" android:text="@string/order_detail_dates" />
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:orientation="vertical">
+                        <TextView style="@style/CustomerOrderInfoLabel" android:text="@string/order_detail_order_date" />
+                        <TextView android:id="@+id/orderDetailOrderDate" style="@style/CustomerOrderInfoValue" />
+                    </LinearLayout>
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical">
+                        <TextView style="@style/CustomerOrderInfoLabel" android:text="@string/order_detail_estimated_date" />
+                        <TextView android:id="@+id/orderDetailEstimatedDate" style="@style/CustomerOrderInfoValue" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/orderDetailCompletionRow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical">
+                        <TextView style="@style/CustomerOrderInfoLabel" android:text="@string/order_detail_completion_date" />
+                        <TextView android:id="@+id/orderDetailCompletionDate" style="@style/CustomerOrderInfoValue" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/CustomerOrderCard"
+                android:layout_marginTop="14dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView style="@style/DashboardSectionTitle" android:text="@string/order_detail_progress" />
+                    <TextView
+                        android:id="@+id/orderDetailTimelineEmpty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="13dp"
+                        android:text="@string/order_detail_timeline_empty"
+                        android:textColor="@color/laundry_text_secondary"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
+                    <LinearLayout
+                        android:id="@+id/orderDetailTimeline"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

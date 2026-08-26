@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/staffDashboardRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dashboard_background"
+    tools:context=".StaffDashboardActivity">
+
+    <LinearLayout
+        android:id="@+id/staffDashboardHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_dashboard_brand_logo"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/laundry_logo_description"
+                    android:src="@drawable/ic_laundry_white" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/app_name"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/staffGreetingText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/staff_greeting"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_dashboard_profile"
+                android:padding="10dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/profile_description"
+                    android:src="@drawable/ic_person" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/staffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffDashboardHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="28dp">
+
+            <TextView
+                style="@style/DashboardSectionTitle"
+                android:text="@string/staff_process_today" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="@color/dashboard_warning_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountWaiting" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_waiting" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="@color/staff_blue_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountWashing" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_washing" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="@color/staff_cyan_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountDrying" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_drying" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="@color/staff_violet_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountIroning" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_ironing" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginEnd="6dp"
+                    app:cardBackgroundColor="@color/dashboard_primary_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountPacking" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_packing" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/StaffSummaryCard"
+                    android:layout_marginStart="6dp"
+                    app:cardBackgroundColor="@color/dashboard_success_soft">
+
+                    <LinearLayout style="@style/StaffSummaryContent">
+                        <TextView android:id="@+id/staffCountReady" style="@style/StaffSummaryCount" tools:text="0" />
+                        <TextView style="@style/StaffSummaryLabel" android:text="@string/staff_status_ready" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <TextView
+                style="@style/DashboardSectionTitle"
+                android:layout_marginTop="26dp"
+                android:text="@string/staff_next_job" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/staffNextJobCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="1dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/staffNextJobCode"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-medium"
+                            tools:text="#LDY..."
+                            android:textColor="@color/laundry_text_secondary"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/staffNextJobStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_status_washing"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="11dp"
+                            android:paddingTop="7dp"
+                            android:paddingEnd="11dp"
+                            android:paddingBottom="7dp"
+                            tools:text="Dicuci"
+                            android:textColor="@color/laundry_primary_dark"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/staffNextJobCustomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:fontFamily="sans-serif-medium"
+                        tools:text="Nama pelanggan"
+                        android:textColor="@color/laundry_text_primary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/staffNextJobDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        tools:text="Layanan • qty"
+                        android:textColor="@color/laundry_text_secondary"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/dashboard_divider" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/staffUpdateStatusButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/staff_update_status"
+                        android:textAllCaps="false"
+                        android:textColor="@color/laundry_on_primary"
+                        android:textSize="14sp"
+                        app:backgroundTint="@color/laundry_primary"
+                        app:cornerRadius="13dp"
+                        app:elevation="0dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/staffSeeAllJobs"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:text="@string/staff_see_all_jobs"
+                android:textColor="@color/laundry_primary"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/staffBottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout android:id="@+id/staffNavHome" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_home" android:src="@drawable/ic_home" />
+            <TextView style="@style/DashboardNavLabel.Active" android:text="@string/nav_home" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/staffNavJobs" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/staff_nav_jobs" android:src="@drawable/ic_orders" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/staff_nav_jobs" />
+        </LinearLayout>
+
+        <LinearLayout android:id="@+id/staffNavHistory" style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_history" android:src="@drawable/ic_history" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/nav_history" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/staffNavProfile"
+            style="@style/DashboardNavItem">
+            <ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_profile" android:src="@drawable/ic_profile_nav" />
+            <TextView style="@style/DashboardNavLabel" android:text="@string/nav_profile" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

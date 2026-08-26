@@ -1,0 +1,25 @@
+*.iml
+.gradle/
+.idea/
+.kotlin/
+local.properties
+build/
+app/build/
+captures/
+.externalNativeBuild/
+.cxx/
+.DS_Store
+
+# Local environment and credentials. Commit only sanitized examples.
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+
+# Local runtime inspection artifacts.
+runtime_*.xml
+runtime_*.png

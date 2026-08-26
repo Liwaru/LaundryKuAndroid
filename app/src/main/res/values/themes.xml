@@ -1,0 +1,493 @@
+<resources>
+    <style name="Base.Theme.LaundryKu" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/laundry_primary</item>
+        <item name="colorPrimaryDark">@color/laundry_primary_dark</item>
+        <item name="colorOnPrimary">@color/laundry_on_primary</item>
+        <item name="colorSurface">@color/laundry_surface</item>
+        <item name="colorOnSurface">@color/laundry_text_primary</item>
+        <item name="colorOutline">@color/laundry_outline</item>
+        <item name="android:colorAccent">@color/laundry_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:windowBackground">@color/laundry_primary</item>
+        <item name="android:navigationBarColor">@color/laundry_surface</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.LaundryKu" parent="Base.Theme.LaundryKu" />
+
+    <style name="DashboardSectionTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DashboardServiceCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">148dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="DashboardServiceContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">12dp</item>
+    </style>
+
+    <style name="DashboardServiceIcon">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:background">@drawable/bg_service_icon</item>
+        <item name="android:padding">9dp</item>
+    </style>
+
+    <style name="DashboardServiceImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="DashboardServiceLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">9dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="DashboardServiceMeta">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="DashboardOrderCode">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DashboardOrderDetail">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DashboardDoneBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_status_done</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColor">@color/dashboard_success</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="DashboardNavItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="DashboardNavIcon">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="DashboardNavLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textColor">@color/dashboard_nav_inactive</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="DashboardNavLabel.Active" parent="DashboardNavLabel">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_primary</item>
+    </style>
+
+    <style name="StaffSummaryCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">88dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <style name="StaffSummaryContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="StaffSummaryCount">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="StaffSummaryLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CashierQuickCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">94dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="CashierQuickContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="CashierQuickIconBackground">
+        <item name="android:layout_width">38dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:background">@drawable/bg_dashboard_profile</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="CashierQuickLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="OwnerSummaryCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">112dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="OwnerSummaryContent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <style name="OwnerIconBackground">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:background">@drawable/bg_dashboard_profile</item>
+        <item name="android:padding">7dp</item>
+    </style>
+
+    <style name="OwnerSummaryValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OwnerSummaryLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="OwnerMenuCard" parent="CashierQuickCard">
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="OwnerRankNumber">
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:background">@drawable/bg_owner_rank</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_on_primary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OwnerListLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="OwnerOperationalCount">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:background">@drawable/bg_owner_count</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_primary_dark</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CustomerOrderFilterTab">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="CustomerOrderFilterTab.Active" parent="CustomerOrderFilterTab">
+        <item name="android:background">@drawable/bg_order_filter_active</item>
+        <item name="android:textColor">@color/laundry_on_primary</item>
+    </style>
+
+    <style name="CustomerOrderCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="CustomerOrderStatusBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">11dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:paddingEnd">11dp</item>
+        <item name="android:paddingBottom">7dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CustomerOrderInfoLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="CustomerOrderInfoValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="CustomerHistorySummaryCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">92dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="CustomerHistorySummaryLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="CustomerHistorySummaryValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ProfileCard">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">18dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="ProfileInfoLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="ProfileInfoValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="ProfileMenuIconFrame">
+        <item name="android:layout_width">42dp</item>
+        <item name="android:layout_height">42dp</item>
+        <item name="android:background">@drawable/bg_dashboard_profile</item>
+        <item name="android:padding">9dp</item>
+    </style>
+
+    <style name="ProfileMenuTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="ProfileMenuDescription">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CashierCustomerInfoLabel">
+        <item name="android:layout_width">82dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="CashierCustomerInfoValue">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="CashierCustomerTransactionBadge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_owner_count</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColor">@color/laundry_primary_dark</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="StaffJobsFilterChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/bg_staff_filter_inactive</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">76dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="StaffJobsFilterChip.Active" parent="StaffJobsFilterChip">
+        <item name="android:background">@drawable/bg_order_filter_active</item>
+        <item name="android:textColor">@color/laundry_on_primary</item>
+    </style>
+
+    <style name="OwnerStaffSummaryCard">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">94dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="cardBackgroundColor">@color/laundry_surface</item>
+        <item name="cardCornerRadius">15dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/dashboard_divider</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="OwnerStaffSummaryValue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/laundry_text_primary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="OwnerStaffSummaryLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/laundry_text_secondary</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+</resources>

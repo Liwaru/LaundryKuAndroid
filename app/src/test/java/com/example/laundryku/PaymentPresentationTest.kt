@@ -1,0 +1,27 @@
+package com.example.laundryku
+
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Test
+
+class PaymentPresentationTest {
+    @Test
+    fun unpaidNonCancelledOrderCanBePaid() {
+        assertTrue(PaymentPresentation.canPay("belum_dibayar", "dicuci"))
+        assertTrue(PaymentPresentation.canPay("belum_dibayar", "siap_diambil"))
+    }
+
+    @Test
+    fun paidOrCancelledOrderCannotBePaid() {
+        assertFalse(PaymentPresentation.canPay("sudah_dibayar", "selesai"))
+        assertFalse(PaymentPresentation.canPay("belum_dibayar", "dibatalkan"))
+    }
+
+    @Test
+    fun cashInstructionIsOnlyPendingForWaitingCashRecord() {
+        assertTrue(PaymentPresentation.isCashWaiting("cash", "menunggu"))
+        assertFalse(PaymentPresentation.isCashWaiting("cash", "berhasil"))
+        assertFalse(PaymentPresentation.isCashWaiting("qris", "menunggu"))
+        assertFalse(PaymentPresentation.isCashWaiting(null, null))
+    }
+}

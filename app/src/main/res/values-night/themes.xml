@@ -1,0 +1,18 @@
+<resources>
+    <style name="Base.Theme.LaundryKu" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/laundry_primary</item>
+        <item name="colorPrimaryDark">@color/laundry_primary_dark</item>
+        <item name="colorOnPrimary">@color/laundry_on_primary</item>
+        <item name="colorSurface">@color/laundry_surface</item>
+        <item name="colorOnSurface">@color/laundry_text_primary</item>
+        <item name="colorOutline">@color/laundry_outline</item>
+        <item name="android:colorAccent">@color/laundry_primary</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:windowBackground">@color/laundry_primary</item>
+        <item name="android:navigationBarColor">@color/laundry_surface</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>

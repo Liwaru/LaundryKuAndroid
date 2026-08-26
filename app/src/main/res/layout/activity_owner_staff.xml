@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ownerStaffRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/owner_background"
+    tools:context=".OwnerStaffActivity">
+
+    <LinearLayout
+        android:id="@+id/ownerStaffHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/bg_dashboard_brand_logo"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/laundry_logo_description"
+                    android:src="@drawable/ic_laundry_white" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/app_name"
+                android:textColor="@color/laundry_text_primary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/owner_staff_title"
+            android:textColor="@color/laundry_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/ownerStaffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffHeader">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerStaffSummaryCard"
+                    android:layout_marginEnd="5dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_cashier" android:src="@drawable/ic_owner_customer_data" app:tint="@color/laundry_primary" />
+                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_cashier_value" />
+                        <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_cashier" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerStaffSummaryCard"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_laundry" android:src="@drawable/ic_owner_staff" app:tint="@color/order_packing" />
+                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_laundry_value" />
+                        <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_laundry" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/OwnerStaffSummaryCard"
+                    android:layout_marginStart="5dp">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
+                        <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_active" android:src="@drawable/ic_owner_check" app:tint="@color/dashboard_success" />
+                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_active_value" />
+                        <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_active" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="18dp"
+                android:text="@string/owner_staff_add"
+                android:textAllCaps="false"
+                android:textColor="@color/laundry_on_primary"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:backgroundTint="@color/laundry_primary"
+                app:cornerRadius="14dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxBackgroundColor="@color/laundry_surface"
+                app:boxCornerRadiusBottomEnd="14dp"
+                app:boxCornerRadiusBottomStart="14dp"
+                app:boxCornerRadiusTopEnd="14dp"
+                app:boxCornerRadiusTopStart="14dp"
+                app:boxStrokeColor="@color/dashboard_divider"
+                app:boxStrokeWidth="1dp"
+                app:hintEnabled="false"
+                app:startIconDrawable="@drawable/ic_search"
+                app:startIconTint="@color/laundry_text_secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/owner_staff_search_hint"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/laundry_text_primary"
+                    android:textColorHint="@color/laundry_text_hint"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_order_filter_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="3dp">
+                <TextView style="@style/CustomerOrderFilterTab.Active" android:text="@string/owner_staff_filter_all" />
+                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_cashier" />
+                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_laundry" />
+            </LinearLayout>
+
+            <include layout="@layout/item_owner_staff_cashier" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" />
+            <include layout="@layout/item_owner_staff_active" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" />
+            <include layout="@layout/item_owner_staff_inactive" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/ownerStaffBottomNavigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:elevation="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout android:id="@+id/ownerStaffNavHome" style="@style/DashboardNavItem"><ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_home" app:srcCompat="@drawable/ic_home" app:tint="@color/dashboard_nav_inactive" /><TextView style="@style/DashboardNavLabel" android:text="@string/nav_home" /></LinearLayout>
+        <LinearLayout android:id="@+id/ownerStaffNavReports" style="@style/DashboardNavItem"><ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/owner_nav_reports" app:srcCompat="@drawable/ic_owner_chart" app:tint="@color/dashboard_nav_inactive" /><TextView style="@style/DashboardNavLabel" android:text="@string/owner_nav_reports" /></LinearLayout>
+        <LinearLayout android:id="@+id/ownerStaffNavStaff" style="@style/DashboardNavItem"><ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/owner_nav_staff" app:srcCompat="@drawable/ic_owner_staff" app:tint="@color/laundry_primary" /><TextView style="@style/DashboardNavLabel.Active" android:text="@string/owner_nav_staff" /></LinearLayout>
+        <LinearLayout android:id="@+id/ownerStaffNavProfile" style="@style/DashboardNavItem"><ImageView style="@style/DashboardNavIcon" android:contentDescription="@string/nav_profile" app:srcCompat="@drawable/ic_profile_nav" app:tint="@color/dashboard_nav_inactive" /><TextView style="@style/DashboardNavLabel" android:text="@string/nav_profile" /></LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
