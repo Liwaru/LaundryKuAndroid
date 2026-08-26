@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once __DIR__ . '/environment.php';
+
 final class MidtransConfigurationException extends RuntimeException
 {
 }
@@ -14,7 +16,7 @@ final class MidtransRequestException extends RuntimeException
 
 function midtransServerKey(): string
 {
-    $key = trim((string) getenv('LAUNDRYKU_MIDTRANS_SERVER_KEY'));
+    $key = trim((string) laundrykuEnvironment('LAUNDRYKU_MIDTRANS_SERVER_KEY'));
     if ($key === '') {
         throw new MidtransConfigurationException('Midtrans Server Key is not configured');
     }
@@ -23,7 +25,7 @@ function midtransServerKey(): string
 
 function midtransBaseUrl(): string
 {
-    $environment = strtolower(trim((string) (getenv('LAUNDRYKU_MIDTRANS_ENV') ?: 'sandbox')));
+    $environment = strtolower(trim((string) laundrykuEnvironment('LAUNDRYKU_MIDTRANS_ENV', 'sandbox')));
     if ($environment !== 'sandbox') {
         throw new MidtransConfigurationException('Only Midtrans Sandbox is enabled');
     }
