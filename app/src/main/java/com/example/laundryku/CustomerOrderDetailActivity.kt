@@ -160,14 +160,23 @@ class CustomerOrderDetailActivity : AppCompatActivity() {
             setBackgroundResource(if (paid) R.drawable.bg_status_done else R.drawable.bg_order_status_waiting)
             setTextColor(getColor(if (paid) R.color.dashboard_success else R.color.order_waiting))
         }
-        val cashPayment = data.payment?.metode == "cash"
-        val cashWaiting = PaymentPresentation.isCashWaiting(data.payment?.metode, data.payment?.status)
+        val paymentMethod = data.payment?.metode
+        val paymentWaiting = data.payment?.status == "menunggu"
+        val paymentFailed = data.payment?.status == "gagal"
         findViewById<TextView>(R.id.orderDetailPaymentInformation).apply {
-            visibility = if (cashPayment) View.VISIBLE else View.GONE
-            if (cashPayment) {
-                setText(if (cashWaiting) R.string.order_detail_cash_pending else R.string.order_detail_cash_method)
-                setBackgroundResource(if (cashWaiting) R.drawable.bg_order_status_waiting else R.drawable.bg_status_done)
-                setTextColor(getColor(if (cashWaiting) R.color.order_waiting else R.color.dashboard_success))
+            visibility = if (paymentMethod == "cash" || paymentMethod == "qris") View.VISIBLE else View.GONE
+            if (paymentMethod == "cash") {
+                setText(if (paymentWaiting) R.string.order_detail_cash_pending else R.string.order_detail_cash_method)
+            } else if (paymentMethod == "qris") {
+                setText(when {
+                    paymentFailed -> R.string.order_detail_qris_failed
+                    paymentWaiting -> R.string.order_detail_qris_pending
+                    else -> R.string.order_detail_qris_method
+                })
+            }
+            if (visibility == View.VISIBLE) {
+                setBackgroundResource(if (paymentWaiting || paymentFailed) R.drawable.bg_order_status_waiting else R.drawable.bg_status_done)
+                setTextColor(getColor(if (paymentWaiting || paymentFailed) R.color.order_waiting else R.color.dashboard_success))
             }
         }
         findViewById<View>(R.id.orderDetailPayButton).visibility =

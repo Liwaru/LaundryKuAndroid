@@ -1,5 +1,6 @@
 package com.example.laundryku
 
+import com.example.laundryku.model.CashierTransactionData
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
@@ -44,4 +45,54 @@ class ExampleUnitTest {
         assertNull(dashboardActivityForLevel(0))
         assertNull(dashboardActivityForLevel(5))
     }
+
+    @Test
+    fun qrisPresentation_mapsPendingSuccessFailureAndExpiry() {
+        assertEquals("Cash", PaymentPresentation.paymentMethodLabel("cash"))
+        assertEquals("QRIS", PaymentPresentation.paymentMethodLabel("qris"))
+        assertNull(PaymentPresentation.paymentMethodLabel("gopay"))
+        assertTrue(PaymentPresentation.isQrisWaiting("qris", "menunggu"))
+        assertEquals(QrisUiState.PENDING, PaymentPresentation.qrisState("belum_dibayar", "menunggu"))
+        assertEquals(QrisUiState.SUCCESS, PaymentPresentation.qrisState("sudah_dibayar", "berhasil"))
+        assertEquals(QrisUiState.FAILURE, PaymentPresentation.qrisState("belum_dibayar", "gagal"))
+        assertEquals("Rp45.000", PaymentPresentation.formatRupiah(45_000.0))
+        assertTrue(PaymentPresentation.shouldPollQris(true, false, 23, 24))
+        assertFalse(PaymentPresentation.shouldPollQris(true, false, 24, 24))
+        assertFalse(PaymentPresentation.shouldPollQris(false, false, 0, 24))
+        assertFalse(PaymentPresentation.shouldPollQris(true, true, 0, 24))
+    }
+
+    @Test
+    fun cashierQrisPayment_neverShowsCashConfirmationButCanCompleteWhenPaid() {
+        val pending = cashierTransaction("belum_dibayar", "menunggu", "dicuci")
+        assertFalse(CashierTransactionPresentation.canConfirmCash(pending))
+        assertFalse(CashierTransactionPresentation.canComplete(pending))
+
+        val paidReady = cashierTransaction("sudah_dibayar", "berhasil", "siap_diambil")
+        assertFalse(CashierTransactionPresentation.canConfirmCash(paidReady))
+        assertTrue(CashierTransactionPresentation.canComplete(paidReady))
+    }
+
+    private fun cashierTransaction(
+        transactionPaymentStatus: String,
+        paymentRecordStatus: String,
+        laundryStatus: String
+    ) = CashierTransactionData(
+        transactionId = 10,
+        transactionCode = "LDY010",
+        customerId = 1,
+        customerName = "Customer",
+        phone = "081234567890",
+        serviceName = "Cuci Setrika",
+        qty = 4.5,
+        satuan = "kg",
+        totalPrice = 45_000.0,
+        laundryStatus = laundryStatus,
+        paymentStatus = transactionPaymentStatus,
+        paymentMethod = "qris",
+        paymentChannel = "qris",
+        paymentRecordStatus = paymentRecordStatus,
+        orderDate = "2026-08-26 10:00:00",
+        estimatedCompletion = null
+    )
 }

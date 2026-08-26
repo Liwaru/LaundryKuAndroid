@@ -123,6 +123,7 @@ try {
              SET metode = 'cash', payment_channel = NULL,
                  jumlah = :jumlah, status = 'menunggu',
                  gateway_order_id = NULL, gateway_transaction_id = NULL,
+                 gateway_qr_url = NULL, gateway_expiry_time = NULL,
                  tanggal_bayar = NULL
              WHERE id_pembayaran = :id_pembayaran"
         );

@@ -30,6 +30,9 @@ import com.example.laundryku.model.OwnerReportsResponse
 import com.example.laundryku.model.LogoutResponse
 import com.example.laundryku.model.UpdateLaundryStatusRequest
 import com.example.laundryku.model.UpdateLaundryStatusResponse
+import com.example.laundryku.model.CreateQrisPaymentRequest
+import com.example.laundryku.model.PaymentStatusResponse
+import com.example.laundryku.model.QrisPaymentResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -65,6 +68,14 @@ interface ApiService {
 
     @POST("api/select_cash_payment.php")
     fun selectCashPayment(@Body request: SelectCashPaymentRequest): Call<CashPaymentResponse>
+
+    @POST("api/create_qris_payment.php")
+    fun createQrisPayment(@Body request: CreateQrisPaymentRequest): Call<QrisPaymentResponse>
+
+    @GET("api/payment_status.php")
+    fun getPaymentStatus(
+        @Query("id_transaksi") transactionId: Int
+    ): Call<PaymentStatusResponse>
 
     @GET("api/cashier_transactions.php")
     fun getCashierTransactions(): Call<CashierTransactionsResponse>
