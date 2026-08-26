@@ -64,11 +64,13 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/ownerStaffScroll"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:overScrollMode="never"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@id/ownerStaffBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +96,7 @@
                     android:layout_marginEnd="5dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
                         <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_cashier" android:src="@drawable/ic_owner_customer_data" app:tint="@color/laundry_primary" />
-                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_cashier_value" />
+                        <TextView android:id="@+id/ownerStaffCashierCount" style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" />
                         <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_cashier" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -105,7 +107,7 @@
                     android:layout_marginEnd="5dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
                         <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_laundry" android:src="@drawable/ic_owner_staff" app:tint="@color/order_packing" />
-                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_laundry_value" />
+                        <TextView android:id="@+id/ownerStaffLaundryCount" style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" />
                         <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_laundry" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -115,13 +117,14 @@
                     android:layout_marginStart="5dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center" android:orientation="vertical" android:padding="8dp">
                         <ImageView android:layout_width="25dp" android:layout_height="25dp" android:contentDescription="@string/owner_staff_summary_active" android:src="@drawable/ic_owner_check" app:tint="@color/dashboard_success" />
-                        <TextView style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" android:text="@string/owner_staff_summary_active_value" />
+                        <TextView android:id="@+id/ownerStaffActiveCount" style="@style/OwnerStaffSummaryValue" android:layout_marginTop="4dp" />
                         <TextView style="@style/OwnerStaffSummaryLabel" android:text="@string/owner_staff_summary_active" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/ownerStaffAddButton"
                 android:layout_width="match_parent"
                 android:layout_height="54dp"
                 android:layout_marginTop="18dp"
@@ -150,6 +153,7 @@
                 app:startIconTint="@color/laundry_text_secondary">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ownerStaffSearchInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/owner_staff_search_hint"
@@ -171,16 +175,92 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="3dp">
-                <TextView style="@style/CustomerOrderFilterTab.Active" android:text="@string/owner_staff_filter_all" />
-                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_cashier" />
-                <TextView style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_laundry" />
+                <TextView android:id="@+id/ownerStaffFilterAll" style="@style/CustomerOrderFilterTab.Active" android:text="@string/owner_staff_filter_all" />
+                <TextView android:id="@+id/ownerStaffFilterCashier" style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_cashier" />
+                <TextView android:id="@+id/ownerStaffFilterLaundry" style="@style/CustomerOrderFilterTab" android:text="@string/owner_staff_filter_laundry" />
             </LinearLayout>
 
-            <include layout="@layout/item_owner_staff_cashier" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="18dp" />
-            <include layout="@layout/item_owner_staff_active" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" />
-            <include layout="@layout/item_owner_staff_inactive" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" />
+            <LinearLayout
+                android:id="@+id/ownerStaffList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:id="@+id/ownerStaffEmptyState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/ownerStaffEmptyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/owner_staff_empty_title"
+                    android:textColor="@color/laundry_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ownerStaffEmptyDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:text="@string/owner_staff_empty_description"
+                    android:textColor="@color/laundry_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/ownerStaffLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/ownerStaffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffHeader" />
+
+    <LinearLayout
+        android:id="@+id/ownerStaffErrorState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/ownerStaffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffHeader">
+
+        <TextView
+            android:id="@+id/ownerStaffErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/owner_staff_load_error"
+            android:textColor="@color/laundry_text_primary"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ownerStaffRetryButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/owner_staff_retry"
+            android:textAllCaps="false"
+            android:textColor="@color/laundry_primary"
+            app:strokeColor="@color/laundry_primary" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ownerStaffBottomNavigation"

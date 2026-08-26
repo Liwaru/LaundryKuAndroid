@@ -24,6 +24,10 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".AddStaffActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".OwnerStaffActivity"
             android:exported="false" />
         <activity

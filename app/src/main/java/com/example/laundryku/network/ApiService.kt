@@ -23,6 +23,9 @@ import com.example.laundryku.model.StaffDashboardResponse
 import com.example.laundryku.model.StaffHistoryResponse
 import com.example.laundryku.model.StaffJobsResponse
 import com.example.laundryku.model.OwnerDashboardResponse
+import com.example.laundryku.model.OwnerCreateStaffRequest
+import com.example.laundryku.model.OwnerCreateStaffResponse
+import com.example.laundryku.model.OwnerStaffResponse
 import com.example.laundryku.model.UpdateLaundryStatusRequest
 import com.example.laundryku.model.UpdateLaundryStatusResponse
 import retrofit2.Call
@@ -77,6 +80,12 @@ interface ApiService {
 
     @GET("api/owner_dashboard.php")
     fun getOwnerDashboard(@Query("id_user") userId: Int): Call<OwnerDashboardResponse>
+
+    @GET("api/owner_staff.php")
+    fun getOwnerStaff(@Query("id_user") userId: Int): Call<OwnerStaffResponse>
+
+    @POST("api/owner_create_staff.php")
+    fun createOwnerStaff(@Body request: OwnerCreateStaffRequest): Call<OwnerCreateStaffResponse>
 
     @GET("api/cashier_customers.php")
     fun getCashierCustomers(@Query("id_user") userId: Int): Call<CashierCustomersResponse>
