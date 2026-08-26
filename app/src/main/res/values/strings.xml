@@ -247,6 +247,14 @@
     <string name="cashier_confirm_payment_received">Sudah Diterima</string>
     <string name="cashier_confirm_payment_success">Pembayaran berhasil dikonfirmasi</string>
     <string name="cashier_confirm_payment_error">Gagal mengonfirmasi pembayaran</string>
+    <string name="cashier_completion_waiting_payment">Menunggu pembayaran sebelum transaksi dapat diselesaikan.</string>
+    <string name="cashier_complete_action">Tandai Selesai</string>
+    <string name="cashier_complete_title">Selesaikan Transaksi?</string>
+    <string name="cashier_complete_message">Pastikan laundry sudah diserahkan kepada pelanggan.</string>
+    <string name="cashier_complete_cancel">Batal</string>
+    <string name="cashier_complete_confirm">Ya, Selesai</string>
+    <string name="cashier_complete_success">Transaksi berhasil diselesaikan</string>
+    <string name="cashier_complete_error">Gagal menyelesaikan transaksi</string>
     <string name="cashier_customers_title">Data Pelanggan</string>
     <string name="cashier_customers_search_hint">Cari nama, username, atau no. HP</string>
     <string name="cashier_customers_total">125 Pelanggan</string>

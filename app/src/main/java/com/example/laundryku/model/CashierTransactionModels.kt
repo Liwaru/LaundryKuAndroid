@@ -45,3 +45,20 @@ data class ConfirmCashPaymentData(
     val metode: String,
     val jumlah: Double
 )
+
+data class CompleteTransactionRequest(
+    @SerializedName("id_user") val cashierId: Int,
+    @SerializedName("id_transaksi") val transactionId: Int
+)
+
+data class CompleteTransactionResponse(
+    val success: Boolean,
+    val message: String,
+    val data: CompleteTransactionData?
+)
+
+data class CompleteTransactionData(
+    @SerializedName("id_transaksi") val transactionId: Int,
+    @SerializedName("status_laundry") val laundryStatus: String,
+    @SerializedName("tanggal_selesai") val completionDate: String?
+)

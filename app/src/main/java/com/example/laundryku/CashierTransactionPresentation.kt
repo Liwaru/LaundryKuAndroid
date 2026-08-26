@@ -42,6 +42,14 @@ object CashierTransactionPresentation {
             transaction.paymentMethod == "cash" &&
             transaction.paymentRecordStatus == "menunggu"
 
+    fun canComplete(transaction: CashierTransactionData): Boolean =
+        transaction.laundryStatus == "siap_diambil" &&
+            transaction.paymentStatus == "sudah_dibayar"
+
+    fun isWaitingForPaymentBeforeCompletion(transaction: CashierTransactionData): Boolean =
+        transaction.laundryStatus == "siap_diambil" &&
+            transaction.paymentStatus == "belum_dibayar"
+
     fun quantity(qty: Double, unit: String): String {
         val symbols = DecimalFormatSymbols(Locale.forLanguageTag("id-ID"))
         return "${DecimalFormat("0.##", symbols).format(qty)} $unit"

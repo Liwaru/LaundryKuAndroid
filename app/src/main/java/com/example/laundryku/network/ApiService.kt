@@ -15,6 +15,8 @@ import com.example.laundryku.model.SelectCashPaymentRequest
 import com.example.laundryku.model.CashierTransactionsResponse
 import com.example.laundryku.model.ConfirmCashPaymentRequest
 import com.example.laundryku.model.ConfirmCashPaymentResponse
+import com.example.laundryku.model.CompleteTransactionRequest
+import com.example.laundryku.model.CompleteTransactionResponse
 import com.example.laundryku.model.StaffDashboardResponse
 import com.example.laundryku.model.StaffHistoryResponse
 import com.example.laundryku.model.StaffJobsResponse
@@ -61,6 +63,11 @@ interface ApiService {
     fun confirmCashPayment(
         @Body request: ConfirmCashPaymentRequest
     ): Call<ConfirmCashPaymentResponse>
+
+    @POST("api/complete_transaction.php")
+    fun completeTransaction(
+        @Body request: CompleteTransactionRequest
+    ): Call<CompleteTransactionResponse>
 
     @GET("api/staff_jobs.php")
     fun getStaffJobs(@Query("id_user") userId: Int): Call<StaffJobsResponse>

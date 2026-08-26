@@ -41,6 +41,34 @@ class CashierTransactionPresentationTest {
     }
 
     @Test
+    fun onlyPaidReadyTransactionCanBeCompleted() {
+        assertTrue(CashierTransactionPresentation.canComplete(transaction(1, "sudah_dibayar", "siap_diambil")))
+        assertFalse(CashierTransactionPresentation.canComplete(transaction(1, "belum_dibayar", "siap_diambil")))
+        assertFalse(CashierTransactionPresentation.canComplete(transaction(1, "sudah_dibayar", "dipacking")))
+        assertFalse(CashierTransactionPresentation.canComplete(transaction(1, "sudah_dibayar", "selesai")))
+        assertFalse(CashierTransactionPresentation.canComplete(transaction(1, "sudah_dibayar", "dibatalkan")))
+    }
+
+    @Test
+    fun unpaidReadyTransactionShowsCompletionRequirement() {
+        assertTrue(
+            CashierTransactionPresentation.isWaitingForPaymentBeforeCompletion(
+                transaction(1, "belum_dibayar", "siap_diambil")
+            )
+        )
+        assertFalse(
+            CashierTransactionPresentation.isWaitingForPaymentBeforeCompletion(
+                transaction(1, "sudah_dibayar", "siap_diambil")
+            )
+        )
+        assertFalse(
+            CashierTransactionPresentation.isWaitingForPaymentBeforeCompletion(
+                transaction(1, "belum_dibayar", "dipacking")
+            )
+        )
+    }
+
+    @Test
     fun quantityUsesIndonesianFormat() {
         assertEquals("4,5 kg", CashierTransactionPresentation.quantity(4.5, "kg"))
         assertEquals("2 kg", CashierTransactionPresentation.quantity(2.0, "kg"))

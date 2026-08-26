@@ -18,6 +18,8 @@ import com.example.laundryku.model.CashierTransactionData
 import com.example.laundryku.model.CashierTransactionsResponse
 import com.example.laundryku.model.ConfirmCashPaymentRequest
 import com.example.laundryku.model.ConfirmCashPaymentResponse
+import com.example.laundryku.model.CompleteTransactionRequest
+import com.example.laundryku.model.CompleteTransactionResponse
 import com.example.laundryku.network.RetrofitClient
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -41,10 +43,12 @@ class CashierTransactionActivity : AppCompatActivity() {
 
     private var transactionsCall: Call<CashierTransactionsResponse>? = null
     private var confirmCall: Call<ConfirmCashPaymentResponse>? = null
+    private var completeCall: Call<CompleteTransactionResponse>? = null
     private var allTransactions: List<CashierTransactionData> = emptyList()
     private var activeFilter = CashierTransactionFilter.ALL
     private var searchQuery = ""
     private var confirmingTransactionId: Int? = null
+    private var completingTransactionId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -225,14 +229,27 @@ class CashierTransactionActivity : AppCompatActivity() {
             if (canConfirm) View.VISIBLE else View.GONE
         card.findViewById<MaterialButton>(R.id.cashierTransactionConfirmPayment).apply {
             visibility = if (canConfirm) View.VISIBLE else View.GONE
-            isEnabled = confirmingTransactionId == null
+            isEnabled = confirmingTransactionId == null && completingTransactionId == null
             if (canConfirm) setOnClickListener { showConfirmDialog(transaction) }
+        }
+
+        card.findViewById<View>(R.id.cashierTransactionCompletionNote).visibility =
+            if (CashierTransactionPresentation.isWaitingForPaymentBeforeCompletion(transaction)) {
+                View.VISIBLE
+            } else {
+                View.GONE
+            }
+        val canComplete = CashierTransactionPresentation.canComplete(transaction)
+        card.findViewById<MaterialButton>(R.id.cashierTransactionCompleteButton).apply {
+            visibility = if (canComplete) View.VISIBLE else View.GONE
+            isEnabled = confirmingTransactionId == null && completingTransactionId == null
+            if (canComplete) setOnClickListener { showCompleteDialog(transaction) }
         }
         return card
     }
 
     private fun showConfirmDialog(transaction: CashierTransactionData) {
-        if (confirmingTransactionId != null) return
+        if (confirmingTransactionId != null || completingTransactionId != null) return
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.cashier_confirm_payment_title)
             .setMessage(getString(R.string.cashier_confirm_payment_message, formatCurrency(transaction.totalPrice)))
@@ -244,7 +261,7 @@ class CashierTransactionActivity : AppCompatActivity() {
     }
 
     private fun confirmCashPayment(transactionId: Int) {
-        if (confirmingTransactionId != null) return
+        if (confirmingTransactionId != null || completingTransactionId != null) return
         confirmingTransactionId = transactionId
         renderTransactions()
         confirmCall = RetrofitClient.apiService.confirmCashPayment(
@@ -282,6 +299,64 @@ class CashierTransactionActivity : AppCompatActivity() {
                     Toast.makeText(
                         this@CashierTransactionActivity,
                         R.string.cashier_confirm_payment_error,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            })
+        }
+    }
+
+    private fun showCompleteDialog(transaction: CashierTransactionData) {
+        if (confirmingTransactionId != null || completingTransactionId != null) return
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.cashier_complete_title)
+            .setMessage(R.string.cashier_complete_message)
+            .setNegativeButton(R.string.cashier_complete_cancel, null)
+            .setPositiveButton(R.string.cashier_complete_confirm) { _, _ ->
+                completeTransaction(transaction.transactionId)
+            }
+            .show()
+    }
+
+    private fun completeTransaction(transactionId: Int) {
+        if (confirmingTransactionId != null || completingTransactionId != null) return
+        completingTransactionId = transactionId
+        renderTransactions()
+        completeCall = RetrofitClient.apiService.completeTransaction(
+            CompleteTransactionRequest(session.getUserId(), transactionId)
+        ).also { call ->
+            call.enqueue(object : Callback<CompleteTransactionResponse> {
+                override fun onResponse(
+                    call: Call<CompleteTransactionResponse>,
+                    response: Response<CompleteTransactionResponse>
+                ) {
+                    if (isFinishing || isDestroyed) return
+                    completingTransactionId = null
+                    val body = response.body()
+                    if (response.isSuccessful && body?.success == true) {
+                        Toast.makeText(
+                            this@CashierTransactionActivity,
+                            R.string.cashier_complete_success,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        loadTransactions()
+                    } else {
+                        renderTransactions()
+                        Toast.makeText(
+                            this@CashierTransactionActivity,
+                            serverMessage(response) ?: getString(R.string.cashier_complete_error),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<CompleteTransactionResponse>, throwable: Throwable) {
+                    if (call.isCanceled || isFinishing || isDestroyed) return
+                    completingTransactionId = null
+                    renderTransactions()
+                    Toast.makeText(
+                        this@CashierTransactionActivity,
+                        R.string.cashier_complete_error,
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -352,6 +427,7 @@ class CashierTransactionActivity : AppCompatActivity() {
     override fun onDestroy() {
         transactionsCall?.cancel()
         confirmCall?.cancel()
+        completeCall?.cancel()
         super.onDestroy()
     }
 
