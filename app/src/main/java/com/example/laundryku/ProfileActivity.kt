@@ -27,27 +27,18 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_profile)
         applySystemBarInsets()
         val level = sessionManager.getLevel()
-        configureProfileData(level)
+        configureProfileData()
         configureBottomNavigation(level)
         configureNavigationActions(level)
         findViewById<View>(R.id.profileBackButton).setOnClickListener { finish() }
         findViewById<View>(R.id.profileLogoutMenu).setOnClickListener { showLogoutConfirmation() }
     }
 
-    private fun configureProfileData(level: Int) {
-        val roleName = when (level) {
-            1 -> getString(R.string.role_customer)
-            2 -> getString(R.string.role_cashier_admin)
-            3 -> getString(R.string.role_laundry_staff)
-            4 -> getString(R.string.role_owner)
-            else -> getString(R.string.role_unknown)
-        }
+    private fun configureProfileData() {
         findViewById<TextView>(R.id.profileHeaderName).text = sessionManager.getNama()
-        findViewById<TextView>(R.id.profileRoleBadge).text = roleName
         findViewById<TextView>(R.id.profileNameValue).text = sessionManager.getNama()
         findViewById<TextView>(R.id.profileUsernameValue).text = sessionManager.getUsername()
         findViewById<TextView>(R.id.profilePhoneValue).text = sessionManager.getNoHp()
-        findViewById<TextView>(R.id.profileRoleValue).text = roleName
     }
 
     private fun showLogoutConfirmation() {

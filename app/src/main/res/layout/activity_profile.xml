@@ -97,20 +97,6 @@
                         android:textSize="21sp"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/profileRoleBadge"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_profile_role"
-                        android:fontFamily="sans-serif-medium"
-                        android:paddingStart="13dp"
-                        android:paddingTop="7dp"
-                        android:paddingEnd="13dp"
-                        android:paddingBottom="7dp"
-                        android:text="@string/role_customer"
-                        android:textColor="@color/laundry_primary_dark"
-                        android:textSize="12sp" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -143,11 +129,6 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="66dp" android:gravity="center_vertical" android:orientation="vertical">
                         <TextView style="@style/ProfileInfoLabel" android:text="@string/profile_phone_label" />
                         <TextView android:id="@+id/profilePhoneValue" style="@style/ProfileInfoValue" android:text="@string/profile_phone_value" />
-                    </LinearLayout>
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/dashboard_divider" />
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="66dp" android:gravity="center_vertical" android:orientation="vertical">
-                        <TextView style="@style/ProfileInfoLabel" android:text="@string/profile_role_label" />
-                        <TextView android:id="@+id/profileRoleValue" style="@style/ProfileInfoValue" android:text="@string/role_customer" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
