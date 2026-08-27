@@ -52,7 +52,11 @@ class CashierDashboardActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (::session.isInitialized) loadDashboard()
+        if (::session.isInitialized) {
+            findViewById<TextView>(R.id.cashierGreetingText).text =
+                getString(R.string.dashboard_greeting_format, session.getNama())
+            loadDashboard()
+        }
     }
 
     private fun bindViews() {

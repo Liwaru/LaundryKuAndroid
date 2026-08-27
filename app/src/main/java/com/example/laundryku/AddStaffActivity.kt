@@ -86,6 +86,9 @@ class AddStaffActivity : AppCompatActivity() {
         if (password.isEmpty()) {
             passwordLayout.error = getString(R.string.auth_required)
             valid = false
+        } else if (password.length < MIN_PASSWORD_LENGTH) {
+            passwordLayout.error = getString(R.string.auth_password_too_short)
+            valid = false
         } else if (password.length > MAX_PASSWORD_LENGTH) {
             passwordLayout.error = getString(R.string.auth_password_too_long)
             valid = false
@@ -162,6 +165,7 @@ class AddStaffActivity : AppCompatActivity() {
     internal companion object {
         const val MAX_NAME_LENGTH = 9
         const val MAX_USERNAME_LENGTH = 12
+        const val MIN_PASSWORD_LENGTH = 6
         const val MAX_PASSWORD_LENGTH = 16
     }
 }

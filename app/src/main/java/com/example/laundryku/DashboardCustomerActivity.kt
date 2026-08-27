@@ -49,7 +49,13 @@ class DashboardCustomerActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (dashboardReady) loadDashboardOrders()
+        if (dashboardReady) {
+            findViewById<TextView>(R.id.customerGreetingText).text = getString(
+                R.string.dashboard_greeting_format,
+                SessionManager(this).getNama()
+            )
+            loadDashboardOrders()
+        }
     }
 
     private fun bindActions() {

@@ -41,6 +41,14 @@ class StaffDashboardActivity : AppCompatActivity() {
         loadDashboard()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (::session.isInitialized) {
+            findViewById<TextView>(R.id.staffGreetingText).text =
+                getString(R.string.dashboard_greeting_format, session.getNama())
+        }
+    }
+
     private fun clearDashboard() {
         listOf(
             R.id.staffCountWaiting,

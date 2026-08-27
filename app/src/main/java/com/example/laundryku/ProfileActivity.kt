@@ -37,7 +37,18 @@ class ProfileActivity : AppCompatActivity() {
         configureBottomNavigation(level)
         configureNavigationActions(level)
         findViewById<View>(R.id.profileBackButton).setOnClickListener { finish() }
+        findViewById<View>(R.id.profileEditMenu).setOnClickListener {
+            startActivity(android.content.Intent(this, EditProfileActivity::class.java))
+        }
+        findViewById<View>(R.id.profilePasswordMenu).setOnClickListener {
+            startActivity(android.content.Intent(this, ChangePasswordActivity::class.java))
+        }
         findViewById<View>(R.id.profileLogoutMenu).setOnClickListener { showLogoutConfirmation() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (::sessionManager.isInitialized && sessionManager.isLoggedIn()) configureProfileData()
     }
 
     private fun configureProfileData() {

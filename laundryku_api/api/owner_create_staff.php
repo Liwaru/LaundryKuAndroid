@@ -61,6 +61,9 @@ try {
     if (mb_strlen($username) > 12) {
         respond(400, false, 'Username maksimal 12 karakter');
     }
+    if (mb_strlen($password) < 6) {
+        respond(400, false, 'Password minimal 6 karakter');
+    }
     if (mb_strlen($password) > 16) {
         respond(400, false, 'Password maksimal 16 karakter');
     }

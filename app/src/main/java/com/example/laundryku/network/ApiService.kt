@@ -36,6 +36,10 @@ import com.example.laundryku.model.PaymentStatusResponse
 import com.example.laundryku.model.QrisPaymentResponse
 import com.example.laundryku.model.SimulateEWalletPaymentRequest
 import com.example.laundryku.model.SimulateEWalletPaymentResponse
+import com.example.laundryku.model.UpdateProfileRequest
+import com.example.laundryku.model.UpdateProfileResponse
+import com.example.laundryku.model.ChangePasswordRequest
+import com.example.laundryku.model.ChangePasswordResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -51,6 +55,12 @@ interface ApiService {
 
     @POST("api/logout.php")
     fun logout(): Call<LogoutResponse>
+
+    @POST("api/update_profile.php")
+    fun updateProfile(@Body request: UpdateProfileRequest): Call<UpdateProfileResponse>
+
+    @POST("api/change_password.php")
+    fun changePassword(@Body request: ChangePasswordRequest): Call<ChangePasswordResponse>
 
     @GET("api/layanan.php")
     fun getServices(): Call<ServicesResponse>

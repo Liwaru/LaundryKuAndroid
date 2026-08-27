@@ -52,6 +52,15 @@ class SessionManager(context: Context) {
 
     fun getAuthToken(): String = preferences.getString(KEY_AUTH_TOKEN, "").orEmpty()
 
+    fun updateProfile(nama: String, noHp: String, username: String): Boolean {
+        if (!isLoggedIn() || nama.isBlank() || noHp.isBlank() || username.isBlank()) return false
+        return preferences.edit()
+            .putString(KEY_NAME, nama)
+            .putString(KEY_PHONE, noHp)
+            .putString(KEY_USERNAME, username)
+            .commit()
+    }
+
     fun clearSession() {
         preferences.edit().clear().commit()
     }

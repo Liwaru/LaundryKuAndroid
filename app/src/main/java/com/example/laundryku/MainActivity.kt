@@ -205,6 +205,10 @@ class MainActivity : AppCompatActivity() {
             passwordLayout.error = getString(R.string.auth_password_too_long)
             valid = false
         }
+        if (password.isNotEmpty() && password.length < MIN_PASSWORD_LENGTH) {
+            passwordLayout.error = getString(R.string.auth_password_too_short)
+            valid = false
+        }
         if (confirmation.isEmpty()) {
             confirmationLayout.error = getString(R.string.auth_required)
             valid = false
@@ -382,6 +386,7 @@ class MainActivity : AppCompatActivity() {
         const val KEY_REGISTER_MODE = "register_mode"
         const val MAX_NAME_LENGTH = 8
         const val MAX_USERNAME_LENGTH = 12
+        const val MIN_PASSWORD_LENGTH = 6
         const val MAX_PASSWORD_LENGTH = 16
     }
 }
