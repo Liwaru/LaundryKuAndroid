@@ -109,10 +109,99 @@
                 style="@style/DashboardSectionTitle"
                 android:text="@string/active_order_title" />
 
+            <ProgressBar
+                android:id="@+id/dashboardOrdersLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:indeterminateTint="@color/laundry_primary" />
+
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardOrdersErrorState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/dashboard_orders_load_error"
+                        android:textColor="@color/laundry_text_primary"
+                        android:textSize="15sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dashboardOrdersRetryButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/create_order_retry"
+                        android:textAllCaps="false"
+                        android:textColor="@color/laundry_primary"
+                        app:strokeColor="@color/laundry_primary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardActiveOrderEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="@string/dashboard_active_empty_title"
+                        android:textColor="@color/laundry_text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center"
+                        android:text="@string/dashboard_active_empty_description"
+                        android:textColor="@color/laundry_text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardActiveOrderCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/laundry_surface"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="1dp"
@@ -138,25 +227,37 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/dashboardActiveOrderCode"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="@string/active_order_code"
                                 android:textColor="@color/laundry_text_secondary"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                tools:text="#LDY-20260827-001" />
 
                             <TextView
+                                android:id="@+id/dashboardActiveOrderService"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="@string/active_order_service"
                                 android:textColor="@color/laundry_text_primary"
                                 android:textSize="18sp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                tools:text="Cuci Setrika" />
+
+                            <TextView
+                                android:id="@+id/dashboardActiveOrderPayment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:textColor="@color/laundry_text_secondary"
+                                android:textSize="12sp"
+                                tools:text="Sudah Dibayar" />
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/dashboardActiveOrderStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_status_active"
@@ -165,9 +266,9 @@
                             android:paddingTop="7dp"
                             android:paddingEnd="11dp"
                             android:paddingBottom="7dp"
-                            android:text="@string/active_order_status"
                             android:textColor="@color/dashboard_warning"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            tools:text="Sedang Dicuci" />
                     </LinearLayout>
 
                     <View
@@ -190,6 +291,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/dashboardActiveOrderEstimate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/active_order_estimate_label"
@@ -201,9 +303,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="@string/active_order_estimate"
                                 android:textColor="@color/laundry_text_primary"
-                                android:textSize="14sp" />
+                                android:textSize="14sp"
+                                tools:text="28 Agustus 2026" />
                         </LinearLayout>
 
                         <com.google.android.material.button.MaterialButton
@@ -343,6 +445,7 @@
                     android:text="@string/last_orders" />
 
                 <TextView
+                    android:id="@+id/dashboardSeeAllOrders"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:fontFamily="sans-serif-medium"
@@ -353,8 +456,10 @@
             </LinearLayout>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardRecentOrdersCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/laundry_surface"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -362,21 +467,31 @@
                 app:strokeWidth="1dp">
 
                 <LinearLayout
+                    android:id="@+id/dashboardRecentOrdersList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical" />
+            </com.google.android.material.card.MaterialCardView>
 
-                    <include layout="@layout/item_last_order_one" />
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/dashboardRecentOrdersEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/laundry_surface"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/dashboard_divider"
+                app:strokeWidth="1dp">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:background="@color/dashboard_divider" />
-
-                    <include layout="@layout/item_last_order_two" />
-                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="18dp"
+                    android:text="@string/dashboard_recent_empty"
+                    android:textColor="@color/laundry_text_secondary"
+                    android:textSize="13sp" />
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout

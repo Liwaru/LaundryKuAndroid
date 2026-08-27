@@ -20,10 +20,10 @@ object CustomerOrderDetailPresentation {
 
     fun statusLabel(status: String): String = when (status) {
         "menunggu" -> "Menunggu"
-        "dicuci" -> "Dicuci"
-        "dikeringkan" -> "Dikeringkan"
-        "disetrika" -> "Disetrika"
-        "dipacking" -> "Dipacking"
+        "dicuci" -> "Sedang Dicuci"
+        "dikeringkan" -> "Sedang Dikeringkan"
+        "disetrika" -> "Sedang Disetrika"
+        "dipacking" -> "Sedang Dipacking"
         "siap_diambil" -> "Siap Diambil"
         "selesai" -> "Selesai"
         "dibatalkan" -> "Dibatalkan"

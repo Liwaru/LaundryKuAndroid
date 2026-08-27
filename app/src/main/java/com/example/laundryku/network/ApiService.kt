@@ -8,6 +8,7 @@ import com.example.laundryku.model.RegisterRequest
 import com.example.laundryku.model.RegisterResponse
 import com.example.laundryku.model.ServicesResponse
 import com.example.laundryku.model.CustomerOrdersResponse
+import com.example.laundryku.model.CustomerDashboardResponse
 import com.example.laundryku.model.CustomerHistoryResponse
 import com.example.laundryku.model.CustomerOrderDetailResponse
 import com.example.laundryku.model.CashPaymentResponse
@@ -59,6 +60,9 @@ interface ApiService {
 
     @GET("api/customer_orders.php")
     fun getCustomerOrders(): Call<CustomerOrdersResponse>
+
+    @GET("api/customer_dashboard.php")
+    fun getCustomerDashboard(): Call<CustomerDashboardResponse>
 
     @GET("api/customer_history.php")
     fun getCustomerHistory(): Call<CustomerHistoryResponse>
