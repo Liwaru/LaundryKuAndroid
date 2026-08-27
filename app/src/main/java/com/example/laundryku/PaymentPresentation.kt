@@ -28,6 +28,9 @@ object PaymentPresentation {
     fun shouldPollQris(pageActive: Boolean, terminal: Boolean, pollCount: Int, maxPolls: Int): Boolean =
         pageActive && !terminal && pollCount < maxPolls
 
+    fun pollCountForManualQrisCheck(pollCount: Int, maxPolls: Int): Int =
+        if (pollCount >= maxPolls) 0 else pollCount
+
     fun formatRupiah(value: Double): String = NumberFormat.getCurrencyInstance(
         Locale.forLanguageTag("id-ID")
     ).apply {

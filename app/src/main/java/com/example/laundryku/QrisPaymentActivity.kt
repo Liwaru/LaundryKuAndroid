@@ -75,7 +75,7 @@ class QrisPaymentActivity : AppCompatActivity() {
                 visibility = View.VISIBLE
             }
         }
-        checkStatusButton.setOnClickListener { refreshStatus(showError = true) }
+        checkStatusButton.setOnClickListener { refreshStatusFromUser() }
         qrError.setOnClickListener { loadQrImage(qrUrl) }
         renderState(QrisUiState.PENDING)
         loadQrImage(qrUrl)
@@ -164,6 +164,11 @@ class QrisPaymentActivity : AppCompatActivity() {
         }
     }
 
+    private fun refreshStatusFromUser() {
+        pollCount = PaymentPresentation.pollCountForManualQrisCheck(pollCount, MAX_POLLS)
+        refreshStatus(showError = true)
+    }
+
     private fun renderState(state: QrisUiState) {
         terminal = state != QrisUiState.PENDING
         when (state) {
@@ -171,7 +176,7 @@ class QrisPaymentActivity : AppCompatActivity() {
                 statusTitle.setText(R.string.payment_qris_pending_status)
                 statusDescription.setText(R.string.payment_qris_scan_instruction)
                 checkStatusButton.setText(R.string.payment_check_status)
-                checkStatusButton.setOnClickListener { refreshStatus(showError = true) }
+                checkStatusButton.setOnClickListener { refreshStatusFromUser() }
                 scheduleNextPoll()
             }
             QrisUiState.SUCCESS -> {

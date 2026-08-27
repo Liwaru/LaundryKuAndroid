@@ -1,6 +1,7 @@
 package com.example.laundryku
 
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -23,5 +24,11 @@ class PaymentPresentationTest {
         assertFalse(PaymentPresentation.isCashWaiting("cash", "berhasil"))
         assertFalse(PaymentPresentation.isCashWaiting("qris", "menunggu"))
         assertFalse(PaymentPresentation.isCashWaiting(null, null))
+    }
+
+    @Test
+    fun manualQrisCheckRestartsPollingAfterAutomaticLimit() {
+        assertEquals(0, PaymentPresentation.pollCountForManualQrisCheck(24, 24))
+        assertEquals(7, PaymentPresentation.pollCountForManualQrisCheck(7, 24))
     }
 }
