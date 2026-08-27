@@ -167,6 +167,7 @@
     <string name="order_detail_qris_pending">Metode: QRIS\nMenunggu pembayaran</string>
     <string name="order_detail_qris_method">Metode: QRIS</string>
     <string name="order_detail_qris_failed">Metode: QRIS\nPembayaran tidak berhasil</string>
+    <string name="order_detail_ewallet_method">Metode: E-Wallet • %1$s</string>
     <string name="payment_title">Pembayaran</string>
     <string name="payment_transaction_code">Kode Transaksi</string>
     <string name="payment_total">Total Pembayaran</string>
@@ -178,6 +179,7 @@
     <string name="payment_ovo">OVO</string>
     <string name="payment_shopeepay">ShopeePay</string>
     <string name="payment_paylater">PayLater</string>
+    <string name="payment_ewallet">E-Wallet</string>
     <string name="payment_available">Tersedia</string>
     <string name="payment_coming_soon">Segera tersedia</string>
     <string name="payment_unavailable_message">Metode pembayaran ini akan tersedia pada tahap berikutnya.</string>
@@ -212,6 +214,14 @@
     <string name="payment_invalid_transaction">Transaksi pembayaran tidak valid</string>
     <string name="payment_already_paid">Pesanan ini sudah dibayar.</string>
     <string name="payment_cancelled_order">Pesanan yang dibatalkan tidak dapat dibayar.</string>
+    <string name="payment_ewallet_title_format">Pembayaran %1$s</string>
+    <string name="payment_ewallet_method_label">Metode</string>
+    <string name="payment_ewallet_demo_description">Konfirmasi pembayaran demo untuk menyelesaikan pesanan ini.</string>
+    <string name="payment_ewallet_process">Proses Pembayaran</string>
+    <string name="payment_ewallet_error">Pembayaran demo belum dapat diproses. Silakan coba lagi.</string>
+    <string name="payment_ewallet_success_title">Pembayaran Berhasil</string>
+    <string name="payment_ewallet_success_description">Pembayaran berhasil diproses.</string>
+    <string name="payment_ewallet_return_dashboard">Kembali ke Dashboard</string>
     <string name="profile_title">Profil</string>
     <string name="profile_back_description">Kembali</string>
     <string name="profile_name">Hendrik</string>

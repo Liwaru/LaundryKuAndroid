@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LaundryKu">
         <activity
+            android:name=".EWalletPaymentActivity"
+            android:exported="false" />
+        <activity
             android:name=".QrisPaymentActivity"
             android:exported="false" />
         <activity

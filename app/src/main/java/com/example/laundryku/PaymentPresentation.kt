@@ -13,9 +13,18 @@ object PaymentPresentation {
     fun isQrisWaiting(method: String?, paymentStatus: String?): Boolean =
         method == "qris" && paymentStatus == "menunggu"
 
-    fun paymentMethodLabel(method: String?): String? = when (method) {
+    fun paymentMethodLabel(method: String?, channel: String? = null): String? = when (method) {
         "cash" -> "Cash"
         "qris" -> "QRIS"
+        "e_wallet" -> "E-Wallet${channelLabel(channel)?.let { " \u2022 $it" }.orEmpty()}"
+        else -> null
+    }
+
+    fun channelLabel(channel: String?): String? = when (channel?.lowercase(Locale.ROOT)) {
+        "gopay" -> "GoPay"
+        "dana" -> "DANA"
+        "ovo" -> "OVO"
+        "shopeepay" -> "ShopeePay"
         else -> null
     }
 

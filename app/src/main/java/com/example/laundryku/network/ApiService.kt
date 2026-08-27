@@ -33,6 +33,8 @@ import com.example.laundryku.model.UpdateLaundryStatusResponse
 import com.example.laundryku.model.CreateQrisPaymentRequest
 import com.example.laundryku.model.PaymentStatusResponse
 import com.example.laundryku.model.QrisPaymentResponse
+import com.example.laundryku.model.SimulateEWalletPaymentRequest
+import com.example.laundryku.model.SimulateEWalletPaymentResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -71,6 +73,11 @@ interface ApiService {
 
     @POST("api/create_qris_payment.php")
     fun createQrisPayment(@Body request: CreateQrisPaymentRequest): Call<QrisPaymentResponse>
+
+    @POST("api/simulate_ewallet_payment.php")
+    fun simulateEWalletPayment(
+        @Body request: SimulateEWalletPaymentRequest
+    ): Call<SimulateEWalletPaymentResponse>
 
     @GET("api/payment_status.php")
     fun getPaymentStatus(

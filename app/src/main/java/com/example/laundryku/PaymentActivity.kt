@@ -181,13 +181,25 @@ class PaymentActivity : AppCompatActivity() {
                     }
                     selectedMethod = method.key
                     renderMethods()
-                    if (method.key == QRIS_KEY) showQrisSelection(existing = qrisPending) else showCashSelection()
+                    when (method.key) {
+                        QRIS_KEY -> showQrisSelection(existing = qrisPending)
+                        CASH_KEY -> showCashSelection()
+                        else -> openEWalletPayment(method.key)
+                    }
                 } else {
                     Toast.makeText(this, R.string.payment_unavailable_message, Toast.LENGTH_SHORT).show()
                 }
             }
             methodsContainer.addView(item)
         }
+    }
+
+    private fun openEWalletPayment(channel: String) {
+        cashInformationCard.visibility = View.GONE
+        startActivity(Intent(this, EWalletPaymentActivity::class.java).apply {
+            putExtra(EWalletPaymentActivity.EXTRA_TRANSACTION_ID, transactionId)
+            putExtra(EWalletPaymentActivity.EXTRA_PAYMENT_CHANNEL, channel)
+        })
     }
 
     private fun showCashSelection() {
@@ -375,10 +387,10 @@ class PaymentActivity : AppCompatActivity() {
         private val PAYMENT_METHODS = listOf(
             PaymentMethod(CASH_KEY, R.string.payment_cash, true),
             PaymentMethod(QRIS_KEY, R.string.payment_qris, true),
-            PaymentMethod("gopay", R.string.payment_gopay, false),
-            PaymentMethod("dana", R.string.payment_dana, false),
-            PaymentMethod("ovo", R.string.payment_ovo, false),
-            PaymentMethod("shopeepay", R.string.payment_shopeepay, false),
+            PaymentMethod("gopay", R.string.payment_gopay, true),
+            PaymentMethod("dana", R.string.payment_dana, true),
+            PaymentMethod("ovo", R.string.payment_ovo, true),
+            PaymentMethod("shopeepay", R.string.payment_shopeepay, true),
             PaymentMethod("paylater", R.string.payment_paylater, false)
         )
     }

@@ -367,13 +367,7 @@ class CashierTransactionActivity : AppCompatActivity() {
     private fun paymentMethodLabel(transaction: CashierTransactionData): String = when (transaction.paymentMethod) {
         "cash" -> "Cash"
         "qris" -> "QRIS"
-        "e_wallet" -> when (transaction.paymentChannel?.lowercase(Locale.ROOT)) {
-            "gopay" -> "GoPay"
-            "dana" -> "DANA"
-            "ovo" -> "OVO"
-            "shopeepay" -> "ShopeePay"
-            else -> "E-Wallet"
-        }
+        "e_wallet" -> PaymentPresentation.paymentMethodLabel("e_wallet", transaction.paymentChannel) ?: "E-Wallet"
         "paylater" -> "PayLater"
         else -> getString(R.string.cashier_payment_method_unselected)
     }

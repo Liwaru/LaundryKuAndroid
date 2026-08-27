@@ -161,10 +161,11 @@ class CustomerOrderDetailActivity : AppCompatActivity() {
             setTextColor(getColor(if (paid) R.color.dashboard_success else R.color.order_waiting))
         }
         val paymentMethod = data.payment?.metode
+        val paymentChannel = data.payment?.paymentChannel
         val paymentWaiting = data.payment?.status == "menunggu"
         val paymentFailed = data.payment?.status == "gagal"
         findViewById<TextView>(R.id.orderDetailPaymentInformation).apply {
-            visibility = if (paymentMethod == "cash" || paymentMethod == "qris") View.VISIBLE else View.GONE
+            visibility = if (paymentMethod in setOf("cash", "qris", "e_wallet")) View.VISIBLE else View.GONE
             if (paymentMethod == "cash") {
                 setText(if (paymentWaiting) R.string.order_detail_cash_pending else R.string.order_detail_cash_method)
             } else if (paymentMethod == "qris") {
@@ -173,6 +174,11 @@ class CustomerOrderDetailActivity : AppCompatActivity() {
                     paymentWaiting -> R.string.order_detail_qris_pending
                     else -> R.string.order_detail_qris_method
                 })
+            } else if (paymentMethod == "e_wallet") {
+                text = getString(
+                    R.string.order_detail_ewallet_method,
+                    PaymentPresentation.channelLabel(paymentChannel) ?: getString(R.string.payment_ewallet)
+                )
             }
             if (visibility == View.VISIBLE) {
                 setBackgroundResource(if (paymentWaiting || paymentFailed) R.drawable.bg_order_status_waiting else R.drawable.bg_status_done)

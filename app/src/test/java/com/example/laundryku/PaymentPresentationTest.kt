@@ -31,4 +31,13 @@ class PaymentPresentationTest {
         assertEquals(0, PaymentPresentation.pollCountForManualQrisCheck(24, 24))
         assertEquals(7, PaymentPresentation.pollCountForManualQrisCheck(7, 24))
     }
+
+    @Test
+    fun eWalletLabelsAreExplicitlyPresentedAsEWallet() {
+        assertEquals("E-Wallet • GoPay", PaymentPresentation.paymentMethodLabel("e_wallet", "gopay"))
+        assertEquals("E-Wallet • DANA", PaymentPresentation.paymentMethodLabel("e_wallet", "dana"))
+        assertEquals("E-Wallet • OVO", PaymentPresentation.paymentMethodLabel("e_wallet", "ovo"))
+        assertEquals("E-Wallet • ShopeePay", PaymentPresentation.paymentMethodLabel("e_wallet", "shopeepay"))
+        assertEquals(null, PaymentPresentation.channelLabel("paylater"))
+    }
 }

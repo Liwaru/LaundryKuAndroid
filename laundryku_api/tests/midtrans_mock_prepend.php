@@ -57,7 +57,7 @@ $GLOBALS['laundryku_midtrans_transport'] = static function (
             'fraud_status' => 'accept',
         ];
         if ($status === 'settlement') {
-            $response['settlement_time'] = '2026-08-26 20:00:00';
+            $response['settlement_time'] = date('Y-m-d') . ' 20:00:00';
         }
         return $response;
     }
