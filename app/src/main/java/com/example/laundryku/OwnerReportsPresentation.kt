@@ -18,24 +18,8 @@ object OwnerReportsPresentation {
 
     fun displayCode(code: String): String = if (code.startsWith('#')) code else "#$code"
 
-    fun paymentMethod(method: String, channel: String?): String {
-        val methodLabel = when (method) {
-            "cash" -> "Cash"
-            "qris" -> "QRIS"
-            "e_wallet" -> "E-Wallet"
-            "paylater" -> "PayLater"
-            else -> method
-        }
-        val channelLabel = when (channel) {
-            null, "" -> null
-            "gopay" -> "GoPay"
-            "dana" -> "DANA"
-            "ovo" -> "OVO"
-            "shopeepay" -> "ShopeePay"
-            else -> channel
-        }
-        return if (channelLabel == null) methodLabel else "$methodLabel \u2022 $channelLabel"
-    }
+    fun paymentMethod(method: String, channel: String?): String =
+        PaymentPresentation.paymentMethodLabel(method, channel) ?: method
 
     fun serviceDetail(transaction: OwnerTransactionReportItem): String {
         val service = transaction.serviceName ?: "Layanan tidak tersedia"

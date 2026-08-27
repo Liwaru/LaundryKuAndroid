@@ -364,13 +364,9 @@ class CashierTransactionActivity : AppCompatActivity() {
         }
     }
 
-    private fun paymentMethodLabel(transaction: CashierTransactionData): String = when (transaction.paymentMethod) {
-        "cash" -> "Cash"
-        "qris" -> "QRIS"
-        "e_wallet" -> PaymentPresentation.paymentMethodLabel("e_wallet", transaction.paymentChannel) ?: "E-Wallet"
-        "paylater" -> "PayLater"
-        else -> getString(R.string.cashier_payment_method_unselected)
-    }
+    private fun paymentMethodLabel(transaction: CashierTransactionData): String =
+        PaymentPresentation.paymentMethodLabel(transaction.paymentMethod, transaction.paymentChannel)
+            ?: getString(R.string.cashier_payment_method_unselected)
 
     private fun displayCode(code: String): String = if (code.startsWith('#')) code else "#$code"
 

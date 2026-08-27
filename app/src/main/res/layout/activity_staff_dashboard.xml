@@ -86,11 +86,13 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/staffDashboardContent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:overScrollMode="never"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/staffBottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -295,6 +297,18 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
+                android:id="@+id/staffNextJobEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/staff_dashboard_no_next_job"
+                android:textColor="@color/laundry_text_secondary"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
                 android:id="@+id/staffSeeAllJobs"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
@@ -305,6 +319,48 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/staffDashboardLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/staffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffDashboardHeader" />
+
+    <LinearLayout
+        android:id="@+id/staffDashboardErrorState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/staffBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/staffDashboardHeader">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/staff_dashboard_load_error"
+            android:textColor="@color/laundry_text_primary"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/staffDashboardRetryButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/cashier_dashboard_retry"
+            android:textAllCaps="false"
+            android:textColor="@color/laundry_primary"
+            app:strokeColor="@color/laundry_primary" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/staffBottomNavigation"

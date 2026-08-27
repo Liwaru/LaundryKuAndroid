@@ -210,16 +210,9 @@
                 android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginEnd="6dp">
-                    <LinearLayout style="@style/CashierQuickContent">
-                        <FrameLayout style="@style/CashierQuickIconBackground">
-                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_customer_data" android:src="@drawable/ic_owner_customer_data" />
-                        </FrameLayout>
-                        <TextView style="@style/CashierQuickLabel" android:text="@string/owner_customer_data" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView style="@style/OwnerMenuCard" android:layout_marginStart="6dp">
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/ownerStaffDataMenu"
+                    style="@style/OwnerMenuCard">
                     <LinearLayout style="@style/CashierQuickContent">
                         <FrameLayout style="@style/CashierQuickIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/owner_staff_data" android:src="@drawable/ic_owner_staff" />

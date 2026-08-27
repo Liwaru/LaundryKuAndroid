@@ -70,19 +70,6 @@
             android:paddingEnd="20dp"
             android:paddingBottom="30dp">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/cashierNewTransactionButton"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/cashier_new_transaction"
-                android:textAllCaps="false"
-                android:textColor="@color/laundry_on_primary"
-                android:textSize="15sp"
-                app:backgroundTint="@color/laundry_primary"
-                app:cornerRadius="14dp"
-                app:elevation="0dp" />
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"

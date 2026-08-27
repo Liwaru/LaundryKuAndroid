@@ -1,12 +1,12 @@
 package com.example.laundryku
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -163,11 +163,9 @@ class CashierCustomerActivity : AppCompatActivity() {
                         customer.totalTransactions
                     )
                     findViewById<MaterialButton>(R.id.cashierCustomerDetailButton).setOnClickListener {
-                        Toast.makeText(
-                            this@CashierCustomerActivity,
-                            R.string.cashier_customer_detail_unavailable,
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        startActivity(Intent(this@CashierCustomerActivity, CashierCustomerDetailActivity::class.java).apply {
+                            putExtra(CashierCustomerDetailActivity.EXTRA_CUSTOMER_ID, customer.userId)
+                        })
                     }
                 }
             )

@@ -36,17 +36,7 @@ object CashierDashboardPresentation {
         .format(value)
         .replace('\u00a0', ' ')
 
-    fun statusLabel(status: String): String = when (status) {
-        "menunggu" -> "Menunggu"
-        "dicuci" -> "Dicuci"
-        "dikeringkan" -> "Dikeringkan"
-        "disetrika" -> "Disetrika"
-        "dipacking" -> "Dipacking"
-        "siap_diambil" -> "Siap Diambil"
-        "selesai" -> "Selesai"
-        "dibatalkan" -> "Dibatalkan"
-        else -> status
-    }
+    fun statusLabel(status: String): String = LaundryStatusPresentation.label(status)
 
     fun paymentLabel(status: String): String = when (status) {
         "sudah_dibayar" -> "Sudah Dibayar"

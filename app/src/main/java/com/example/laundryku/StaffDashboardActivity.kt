@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +36,7 @@ class StaffDashboardActivity : AppCompatActivity() {
         findViewById<View>(R.id.staffNavProfile).setOnClickListener { openProfileForLevel(3) }
         findViewById<View>(R.id.staffUpdateStatusButton).setOnClickListener { openScreen(StaffJobsActivity::class.java) }
         findViewById<View>(R.id.staffSeeAllJobs).setOnClickListener { openScreen(StaffJobsActivity::class.java) }
+        findViewById<View>(R.id.staffDashboardRetryButton).setOnClickListener { loadDashboard() }
         clearDashboard()
         loadDashboard()
     }
@@ -63,6 +63,9 @@ class StaffDashboardActivity : AppCompatActivity() {
 
     private fun loadDashboard() {
         dashboardCall?.cancel()
+        findViewById<View>(R.id.staffDashboardContent).visibility = View.GONE
+        findViewById<View>(R.id.staffDashboardErrorState).visibility = View.GONE
+        findViewById<View>(R.id.staffDashboardLoading).visibility = View.VISIBLE
         dashboardCall = RetrofitClient.apiService.getStaffDashboard().also { call ->
             call.enqueue(object : Callback<StaffDashboardResponse> {
                 override fun onResponse(call: Call<StaffDashboardResponse>, response: Response<StaffDashboardResponse>) {
@@ -77,6 +80,8 @@ class StaffDashboardActivity : AppCompatActivity() {
                         findViewById<TextView>(R.id.staffCountPacking).text = summary.dipacking.toString()
                         findViewById<TextView>(R.id.staffCountReady).text = summary.ready.toString()
                         renderNextJob(body.data.nextJob)
+                        findViewById<View>(R.id.staffDashboardLoading).visibility = View.GONE
+                        findViewById<View>(R.id.staffDashboardContent).visibility = View.VISIBLE
                     } else showDashboardError()
                 }
 
@@ -90,6 +95,7 @@ class StaffDashboardActivity : AppCompatActivity() {
 
     private fun renderNextJob(job: StaffJobData?) {
         findViewById<View>(R.id.staffNextJobCard).visibility = if (job == null) View.GONE else View.VISIBLE
+        findViewById<View>(R.id.staffNextJobEmpty).visibility = if (job == null) View.VISIBLE else View.GONE
         if (job == null) return
         findViewById<TextView>(R.id.staffNextJobCode).text = if (job.transactionCode.startsWith('#')) job.transactionCode else "#${job.transactionCode}"
         findViewById<TextView>(R.id.staffNextJobCustomer).text = job.customerName
@@ -117,7 +123,9 @@ class StaffDashboardActivity : AppCompatActivity() {
 
     private fun showDashboardError() {
         clearDashboard()
-        Toast.makeText(this, R.string.staff_dashboard_load_error, Toast.LENGTH_LONG).show()
+        findViewById<View>(R.id.staffDashboardLoading).visibility = View.GONE
+        findViewById<View>(R.id.staffDashboardContent).visibility = View.GONE
+        findViewById<View>(R.id.staffDashboardErrorState).visibility = View.VISIBLE
     }
 
     private fun applySystemBarInsets() {

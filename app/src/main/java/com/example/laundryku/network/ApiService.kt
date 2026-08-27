@@ -40,6 +40,8 @@ import com.example.laundryku.model.UpdateProfileRequest
 import com.example.laundryku.model.UpdateProfileResponse
 import com.example.laundryku.model.ChangePasswordRequest
 import com.example.laundryku.model.ChangePasswordResponse
+import com.example.laundryku.model.CashierCustomerDetailResponse
+import com.example.laundryku.model.OwnerStaffDetailResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -120,6 +122,9 @@ interface ApiService {
     @GET("api/owner_staff.php")
     fun getOwnerStaff(): Call<OwnerStaffResponse>
 
+    @GET("api/owner_staff_detail.php")
+    fun getOwnerStaffDetail(@Query("id_staff") staffId: Int): Call<OwnerStaffDetailResponse>
+
     @POST("api/owner_create_staff.php")
     fun createOwnerStaff(@Body request: OwnerCreateStaffRequest): Call<OwnerCreateStaffResponse>
 
@@ -130,6 +135,11 @@ interface ApiService {
 
     @GET("api/cashier_customers.php")
     fun getCashierCustomers(): Call<CashierCustomersResponse>
+
+    @GET("api/cashier_customer_detail.php")
+    fun getCashierCustomerDetail(
+        @Query("id_pelanggan") customerId: Int
+    ): Call<CashierCustomerDetailResponse>
 
     @GET("api/staff_jobs.php")
     fun getStaffJobs(): Call<StaffJobsResponse>

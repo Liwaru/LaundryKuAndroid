@@ -38,6 +38,9 @@
             android:name=".OwnerStaffActivity"
             android:exported="false" />
         <activity
+            android:name=".OwnerStaffDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".OwnerReportsActivity"
             android:exported="false" />
         <activity
@@ -48,6 +51,9 @@
             android:exported="false" />
         <activity
             android:name=".CashierCustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CashierCustomerDetailActivity"
             android:exported="false" />
         <activity
             android:name=".CashierTransactionActivity"

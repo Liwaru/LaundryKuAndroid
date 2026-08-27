@@ -171,20 +171,6 @@
                 android:layout_marginTop="26dp"
                 android:text="@string/cashier_quick_actions" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/cashierCreateTransactionButton"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/cashier_create_transaction_cta"
-                android:textAllCaps="false"
-                android:textColor="@color/laundry_on_primary"
-                android:textSize="15sp"
-                app:backgroundTint="@color/laundry_primary"
-                app:cornerRadius="14dp"
-                app:elevation="0dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -193,8 +179,9 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cashierCustomerDataAction"
                     style="@style/CashierQuickCard"
-                    android:layout_marginEnd="4dp">
+                    android:layout_marginEnd="6dp">
                     <LinearLayout style="@style/CashierQuickContent">
                         <FrameLayout style="@style/CashierQuickIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/cashier_customer_data" android:src="@drawable/ic_person" />
@@ -204,20 +191,9 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cashierPaymentAction"
                     style="@style/CashierQuickCard"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginEnd="4dp">
-                    <LinearLayout style="@style/CashierQuickContent">
-                        <FrameLayout style="@style/CashierQuickIconBackground">
-                            <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/cashier_service_data" android:src="@drawable/ic_service_data" />
-                        </FrameLayout>
-                        <TextView style="@style/CashierQuickLabel" android:text="@string/cashier_service_data" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/CashierQuickCard"
-                    android:layout_marginStart="4dp">
+                    android:layout_marginStart="6dp">
                     <LinearLayout style="@style/CashierQuickContent">
                         <FrameLayout style="@style/CashierQuickIconBackground">
                             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/cashier_payment" android:src="@drawable/ic_payment" />

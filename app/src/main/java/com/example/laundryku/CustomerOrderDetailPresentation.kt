@@ -18,15 +18,5 @@ object CustomerOrderDetailPresentation {
         )
     }
 
-    fun statusLabel(status: String): String = when (status) {
-        "menunggu" -> "Menunggu"
-        "dicuci" -> "Sedang Dicuci"
-        "dikeringkan" -> "Sedang Dikeringkan"
-        "disetrika" -> "Sedang Disetrika"
-        "dipacking" -> "Sedang Dipacking"
-        "siap_diambil" -> "Siap Diambil"
-        "selesai" -> "Selesai"
-        "dibatalkan" -> "Dibatalkan"
-        else -> status.replace('_', ' ').replaceFirstChar { it.uppercase() }
-    }
+    fun statusLabel(status: String): String = LaundryStatusPresentation.label(status)
 }

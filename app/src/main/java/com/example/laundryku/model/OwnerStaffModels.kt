@@ -29,6 +29,16 @@ data class OwnerStaffMember(
     @SerializedName("created_at") val createdAt: String?
 )
 
+data class OwnerStaffDetailResponse(
+    val success: Boolean,
+    val message: String,
+    val data: OwnerStaffDetailData?
+)
+
+data class OwnerStaffDetailData(
+    val staff: OwnerStaffMember
+)
+
 data class OwnerCreateStaffRequest(
     val nama: String,
     @SerializedName("no_hp") val phone: String,

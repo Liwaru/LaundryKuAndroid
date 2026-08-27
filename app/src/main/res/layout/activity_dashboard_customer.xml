@@ -343,12 +343,47 @@
                 android:layout_marginTop="26dp"
                 android:text="@string/popular_services" />
 
+            <ProgressBar
+                android:id="@+id/dashboardServicesLoading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp" />
+
             <LinearLayout
+                android:id="@+id/dashboardServicesErrorState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dashboard_services_load_error"
+                    android:textColor="@color/laundry_text_secondary"
+                    android:textSize="14sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/dashboardServicesRetryButton"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/cashier_dashboard_retry"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dashboardServicesRowOne"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/serviceDry"
@@ -363,8 +398,8 @@
                                 app:srcCompat="@drawable/ic_service_wash" />
                         </FrameLayout>
                         <TextView android:id="@+id/serviceDryName" style="@style/DashboardServiceLabel" android:text="@string/service_dry" />
-                        <TextView android:id="@+id/serviceDryPrice" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_price_fallback_dry" />
-                        <TextView android:id="@+id/serviceDryMinimum" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_minimum_fallback_kg" />
+                        <TextView android:id="@+id/serviceDryPrice" style="@style/DashboardServiceMeta" />
+                        <TextView android:id="@+id/serviceDryMinimum" style="@style/DashboardServiceMeta" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -381,18 +416,20 @@
                                 app:srcCompat="@drawable/ic_service_iron" />
                         </FrameLayout>
                         <TextView android:id="@+id/serviceIronName" style="@style/DashboardServiceLabel" android:text="@string/service_iron" />
-                        <TextView android:id="@+id/serviceIronPrice" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_price_fallback_iron" />
-                        <TextView android:id="@+id/serviceIronMinimum" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_minimum_fallback_kg" />
+                        <TextView android:id="@+id/serviceIronPrice" style="@style/DashboardServiceMeta" />
+                        <TextView android:id="@+id/serviceIronMinimum" style="@style/DashboardServiceMeta" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/dashboardServicesRowTwo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/serviceExpress"
@@ -407,8 +444,8 @@
                                 app:srcCompat="@drawable/ic_service_express" />
                         </FrameLayout>
                         <TextView android:id="@+id/serviceExpressName" style="@style/DashboardServiceLabel" android:text="@string/service_express" />
-                        <TextView android:id="@+id/serviceExpressPrice" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_price_fallback_express" />
-                        <TextView android:id="@+id/serviceExpressMinimum" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_minimum_fallback_kg" />
+                        <TextView android:id="@+id/serviceExpressPrice" style="@style/DashboardServiceMeta" />
+                        <TextView android:id="@+id/serviceExpressMinimum" style="@style/DashboardServiceMeta" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -425,8 +462,8 @@
                                 app:srcCompat="@drawable/ic_service_bedcover" />
                         </FrameLayout>
                         <TextView android:id="@+id/serviceBedCoverName" style="@style/DashboardServiceLabel" android:text="@string/service_bed_cover" />
-                        <TextView android:id="@+id/serviceBedCoverPrice" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_price_fallback_bedcover" />
-                        <TextView android:id="@+id/serviceBedCoverMinimum" style="@style/DashboardServiceMeta" android:text="@string/dashboard_service_minimum_fallback_pcs" />
+                        <TextView android:id="@+id/serviceBedCoverPrice" style="@style/DashboardServiceMeta" />
+                        <TextView android:id="@+id/serviceBedCoverMinimum" style="@style/DashboardServiceMeta" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>

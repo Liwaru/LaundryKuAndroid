@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ownerStaffDetailRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/owner_background">
+
+    <LinearLayout
+        android:id="@+id/ownerStaffDetailHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/laundry_surface"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:id="@+id/ownerStaffDetailBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/profile_back_description"
+            android:padding="12dp"
+            android:src="@drawable/ic_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/owner_staff_detail_title"
+            android:textColor="@color/laundry_text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/ownerStaffDetailContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffDetailHeader">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <com.google.android.material.card.MaterialCardView
+                style="@style/ProfileCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+                    <TextView style="@style/ProfileInfoLabel" android:text="@string/profile_name_label" />
+                    <TextView android:id="@+id/ownerStaffDetailName" style="@style/ProfileInfoValue" />
+                    <TextView style="@style/ProfileInfoLabel" android:layout_marginTop="14dp" android:text="@string/profile_username_label" />
+                    <TextView android:id="@+id/ownerStaffDetailUsername" style="@style/ProfileInfoValue" />
+                    <TextView style="@style/ProfileInfoLabel" android:layout_marginTop="14dp" android:text="@string/profile_phone_label" />
+                    <TextView android:id="@+id/ownerStaffDetailPhone" style="@style/ProfileInfoValue" />
+                    <TextView style="@style/ProfileInfoLabel" android:layout_marginTop="14dp" android:text="@string/management_role" />
+                    <TextView android:id="@+id/ownerStaffDetailRole" style="@style/ProfileInfoValue" />
+                    <TextView style="@style/ProfileInfoLabel" android:layout_marginTop="14dp" android:text="@string/management_account_status" />
+                    <TextView android:id="@+id/ownerStaffDetailStatus" style="@style/ProfileInfoValue" />
+                    <TextView style="@style/ProfileInfoLabel" android:layout_marginTop="14dp" android:text="@string/management_created_at" />
+                    <TextView android:id="@+id/ownerStaffDetailCreated" style="@style/ProfileInfoValue" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/ownerStaffDetailLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffDetailHeader" />
+
+    <LinearLayout
+        android:id="@+id/ownerStaffDetailError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ownerStaffDetailHeader">
+        <TextView
+            android:id="@+id/ownerStaffDetailErrorMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/owner_staff_detail_error"
+            android:textColor="@color/laundry_text_primary" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ownerStaffDetailRetry"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/owner_staff_retry"
+            android:textAllCaps="false" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,6 @@
     <string name="dashboard_recent_empty">Belum ada riwayat pesanan.</string>
     <string name="dashboard_recent_detail_format">%1$s • %2$s</string>
     <string name="detail_order">Lihat Detail</string>
-    <string name="new_order">Laundry Sekarang</string>
     <string name="new_order_cta">+  Laundry Sekarang</string>
     <string name="popular_services">Layanan Populer</string>
     <string name="service_dry">Cuci Kering</string>
@@ -43,8 +42,6 @@
     <string name="nav_orders">Pesanan</string>
     <string name="nav_history">Riwayat</string>
     <string name="nav_profile">Profil</string>
-    <string name="feature_coming_soon">%1$s akan tersedia pada tahap berikutnya.</string>
-    <string name="service_icon_description">Ikon layanan %1$s</string>
     <string name="staff_greeting">Selamat Datang, Staff</string>
     <string name="staff_process_today">Proses Hari Ini</string>
     <string name="staff_status_waiting">Menunggu</string>
@@ -65,10 +62,7 @@
     <string name="cashier_ready_pickup">Siap Diambil</string>
     <string name="cashier_income_today">Pendapatan Hari Ini</string>
     <string name="cashier_quick_actions">Aksi Cepat</string>
-    <string name="cashier_create_transaction">Buat Transaksi</string>
-    <string name="cashier_create_transaction_cta">+  Buat Transaksi</string>
     <string name="cashier_customer_data">Data Pelanggan</string>
-    <string name="cashier_service_data">Data Layanan</string>
     <string name="cashier_payment">Pembayaran</string>
     <string name="cashier_latest_transactions">Transaksi Terbaru</string>
     <string name="cashier_ready_orders">Pesanan Siap Diambil</string>
@@ -88,7 +82,6 @@
     <string name="owner_main_menu">Menu Utama</string>
     <string name="owner_financial_report">Laporan Keuangan</string>
     <string name="owner_transaction_report">Laporan Transaksi</string>
-    <string name="owner_customer_data">Data Pelanggan</string>
     <string name="owner_staff_data">Data Staff</string>
     <string name="owner_best_services">Layanan Terlaris</string>
     <string name="owner_rank_one">1</string>
@@ -174,11 +167,8 @@
     <string name="payment_dana">DANA</string>
     <string name="payment_ovo">OVO</string>
     <string name="payment_shopeepay">ShopeePay</string>
-    <string name="payment_paylater">PayLater</string>
     <string name="payment_ewallet">E-Wallet</string>
     <string name="payment_available">Tersedia</string>
-    <string name="payment_coming_soon">Segera tersedia</string>
-    <string name="payment_unavailable_message">Metode pembayaran ini akan tersedia pada tahap berikutnya.</string>
     <string name="payment_cash_information_title">Pembayaran Cash</string>
     <string name="payment_cash_information">Silakan lakukan pembayaran langsung di kasir.\n\nPembayaran akan dikonfirmasi oleh kasir setelah uang diterima.</string>
     <string name="payment_cash_submit">Bayar di Kasir</string>
@@ -249,7 +239,6 @@
     <string name="profile_logout">Logout</string>
     <string name="profile_logout_description">Keluar dari akun LaundryKu</string>
     <string name="cashier_transactions_title">Transaksi Laundry</string>
-    <string name="cashier_new_transaction">+  Transaksi Baru</string>
     <string name="cashier_transaction_search_hint">Cari kode transaksi atau pelanggan</string>
     <string name="cashier_filter_all">Semua</string>
     <string name="cashier_filter_unpaid">Belum Dibayar</string>
@@ -292,7 +281,18 @@
     <string name="cashier_customer_phone_label">No. HP:</string>
     <string name="cashier_customer_transactions_format">%1$d Transaksi</string>
     <string name="cashier_customer_avatar_description">Pelanggan</string>
-    <string name="cashier_customer_detail_unavailable">Detail pelanggan akan tersedia pada tahap berikutnya.</string>
+    <string name="cashier_customer_detail_title">Detail Pelanggan</string>
+    <string name="cashier_customer_detail_error">Detail pelanggan belum dapat dimuat</string>
+    <string name="cashier_customer_recent_title">Transaksi Terbaru</string>
+    <string name="cashier_customer_recent_empty">Belum ada transaksi pelanggan.</string>
+    <string name="cashier_customer_recent_meta">%1$s • %2$s</string>
+    <string name="management_account_status">Status Akun</string>
+    <string name="management_total_transactions">Total Transaksi</string>
+    <string name="management_total_spending">Total Pengeluaran</string>
+    <string name="management_joined_at">Tanggal Bergabung</string>
+    <string name="management_role">Role</string>
+    <string name="management_created_at">Tanggal Dibuat</string>
+    <string name="management_invalid_target">Data yang dipilih tidak valid</string>
     <string name="cashier_customers_empty_title">Belum ada pelanggan</string>
     <string name="cashier_customers_empty_description">Pelanggan yang mendaftar akan muncul di sini.</string>
     <string name="cashier_customers_search_empty_title">Pelanggan tidak ditemukan</string>
@@ -379,7 +379,8 @@
     <string name="owner_staff_status_active">Aktif</string>
     <string name="owner_staff_status_inactive">Nonaktif</string>
     <string name="owner_staff_avatar_description">Foto staff</string>
-    <string name="owner_staff_detail_unavailable">Detail staff akan tersedia pada tahap berikutnya.</string>
+    <string name="owner_staff_detail_title">Detail Staff</string>
+    <string name="owner_staff_detail_error">Detail staff belum dapat dimuat</string>
     <string name="owner_staff_empty_title">Belum ada staff</string>
     <string name="owner_staff_empty_description">Tambahkan akun Kasir atau Staff Laundry.</string>
     <string name="owner_staff_search_empty_title">Staff tidak ditemukan</string>
@@ -411,7 +412,6 @@
     <string name="auth_invalid_response">Response server tidak valid</string>
     <string name="auth_invalid_role">Role akun tidak valid</string>
     <string name="dashboard_greeting_format">Selamat Datang, %1$s</string>
-    <string name="profile_role_label">Role</string>
     <string name="logout_confirmation_title">Keluar dari akun?</string>
     <string name="logout_cancel">Batal</string>
     <string name="logout_confirm">Keluar</string>
@@ -444,11 +444,5 @@
     <string name="create_order_quantity_integer">Jumlah pcs harus berupa bilangan bulat</string>
     <string name="create_order_success">Pesanan berhasil dibuat</string>
     <string name="create_order_network_error">Tidak dapat terhubung ke server. Periksa koneksi.</string>
-    <string name="dashboard_service_price_fallback_dry">Rp7.000/kg</string>
-    <string name="dashboard_service_price_fallback_iron">Rp10.000/kg</string>
-    <string name="dashboard_service_price_fallback_express">Rp15.000/kg</string>
-    <string name="dashboard_service_price_fallback_bedcover">Rp25.000/pcs</string>
-    <string name="dashboard_service_minimum_fallback_kg">Min. 2 kg</string>
-    <string name="dashboard_service_minimum_fallback_pcs">Min. 1 pcs</string>
     <string name="dashboard_services_load_error">Data layanan terbaru belum dapat dimuat</string>
 </resources>

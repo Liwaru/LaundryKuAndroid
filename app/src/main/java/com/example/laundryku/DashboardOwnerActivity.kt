@@ -46,6 +46,9 @@ class DashboardOwnerActivity : AppCompatActivity() {
             openScreen(OwnerReportsActivity::class.java)
         }
         findViewById<View>(R.id.ownerNavStaff).setOnClickListener { openScreen(OwnerStaffActivity::class.java) }
+        findViewById<View>(R.id.ownerStaffDataMenu).setOnClickListener {
+            openScreen(OwnerStaffActivity::class.java)
+        }
         findViewById<View>(R.id.ownerNavProfile).setOnClickListener { openProfileForLevel(4) }
         findViewById<View>(R.id.ownerDashboardRetryButton).setOnClickListener { loadDashboard() }
         clearDashboard()

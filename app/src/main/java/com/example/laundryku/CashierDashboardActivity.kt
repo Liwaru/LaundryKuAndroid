@@ -45,6 +45,12 @@ class CashierDashboardActivity : AppCompatActivity() {
         findViewById<View>(R.id.cashierNavTransactions).setOnClickListener { openScreen(CashierTransactionActivity::class.java) }
         findViewById<View>(R.id.cashierNavCustomers).setOnClickListener { openScreen(CashierCustomerActivity::class.java) }
         findViewById<View>(R.id.cashierNavProfile).setOnClickListener { openProfileForLevel(2) }
+        findViewById<View>(R.id.cashierCustomerDataAction).setOnClickListener {
+            openScreen(CashierCustomerActivity::class.java)
+        }
+        findViewById<View>(R.id.cashierPaymentAction).setOnClickListener {
+            openScreen(CashierTransactionActivity::class.java)
+        }
         findViewById<View>(R.id.cashierSeeAllTransactions).setOnClickListener { openScreen(CashierTransactionActivity::class.java) }
         findViewById<View>(R.id.cashierDashboardRetryButton).setOnClickListener { loadDashboard() }
         clearDashboard()

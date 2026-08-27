@@ -15,14 +15,13 @@ class OwnerReportsPresentationTest {
     }
 
     @Test
-    fun paymentMethodIsFutureReadyWithoutNullChannel() {
+    fun paymentMethodUsesTheSupportedPaymentLabels() {
         assertEquals("Cash", OwnerReportsPresentation.paymentMethod("cash", null))
         assertEquals("QRIS", OwnerReportsPresentation.paymentMethod("qris", null))
         assertEquals("E-Wallet • GoPay", OwnerReportsPresentation.paymentMethod("e_wallet", "gopay"))
         assertEquals("E-Wallet • DANA", OwnerReportsPresentation.paymentMethod("e_wallet", "dana"))
         assertEquals("E-Wallet • OVO", OwnerReportsPresentation.paymentMethod("e_wallet", "ovo"))
         assertEquals("E-Wallet • ShopeePay", OwnerReportsPresentation.paymentMethod("e_wallet", "shopeepay"))
-        assertEquals("PayLater", OwnerReportsPresentation.paymentMethod("paylater", null))
     }
 
     @Test

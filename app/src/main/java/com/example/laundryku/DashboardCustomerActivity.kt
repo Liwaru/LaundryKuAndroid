@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -61,6 +60,7 @@ class DashboardCustomerActivity : AppCompatActivity() {
     private fun bindActions() {
         findViewById<View>(R.id.newOrderButton).setOnClickListener { openCreateOrder() }
         findViewById<View>(R.id.dashboardOrdersRetryButton).setOnClickListener { loadDashboardOrders() }
+        findViewById<View>(R.id.dashboardServicesRetryButton).setOnClickListener { loadPopularServices() }
         findViewById<View>(R.id.dashboardSeeAllOrders).setOnClickListener {
             openScreen(CustomerOrdersActivity::class.java)
         }
@@ -199,6 +199,12 @@ class DashboardCustomerActivity : AppCompatActivity() {
     }
 
     private fun loadPopularServices() {
+        servicesCall?.cancel()
+        serviceIdsByCard.clear()
+        findViewById<View>(R.id.dashboardServicesLoading).visibility = View.VISIBLE
+        findViewById<View>(R.id.dashboardServicesErrorState).visibility = View.GONE
+        findViewById<View>(R.id.dashboardServicesRowOne).visibility = View.GONE
+        findViewById<View>(R.id.dashboardServicesRowTwo).visibility = View.GONE
         servicesCall = RetrofitClient.apiService.getServices().also { call ->
             call.enqueue(object : Callback<ServicesResponse> {
                 override fun onResponse(call: Call<ServicesResponse>, response: Response<ServicesResponse>) {
@@ -206,6 +212,13 @@ class DashboardCustomerActivity : AppCompatActivity() {
                     val body = response.body()
                     if (response.isSuccessful && body?.success == true) {
                         body.data.orEmpty().forEach(::showService)
+                        if (serviceIdsByCard.isEmpty()) {
+                            showServicesLoadError()
+                        } else {
+                            findViewById<View>(R.id.dashboardServicesLoading).visibility = View.GONE
+                            findViewById<View>(R.id.dashboardServicesRowOne).visibility = View.VISIBLE
+                            findViewById<View>(R.id.dashboardServicesRowTwo).visibility = View.VISIBLE
+                        }
                     } else {
                         showServicesLoadError()
                     }
@@ -238,7 +251,10 @@ class DashboardCustomerActivity : AppCompatActivity() {
     }
 
     private fun showServicesLoadError() {
-        Toast.makeText(this, R.string.dashboard_services_load_error, Toast.LENGTH_SHORT).show()
+        findViewById<View>(R.id.dashboardServicesLoading).visibility = View.GONE
+        findViewById<View>(R.id.dashboardServicesRowOne).visibility = View.GONE
+        findViewById<View>(R.id.dashboardServicesRowTwo).visibility = View.GONE
+        findViewById<View>(R.id.dashboardServicesErrorState).visibility = View.VISIBLE
     }
 
     private fun formatCurrency(value: Double): String = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("id-ID")).apply {

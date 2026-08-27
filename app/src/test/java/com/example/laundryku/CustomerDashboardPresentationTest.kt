@@ -17,10 +17,10 @@ class CustomerDashboardPresentationTest {
     @Test
     fun `dashboard uses customer friendly workflow labels`() {
         assertEquals("Menunggu", CustomerDashboardPresentation.statusLabel("menunggu"))
-        assertEquals("Sedang Dicuci", CustomerDashboardPresentation.statusLabel("dicuci"))
-        assertEquals("Sedang Dikeringkan", CustomerDashboardPresentation.statusLabel("dikeringkan"))
-        assertEquals("Sedang Disetrika", CustomerDashboardPresentation.statusLabel("disetrika"))
-        assertEquals("Sedang Dipacking", CustomerDashboardPresentation.statusLabel("dipacking"))
+        assertEquals("Dicuci", CustomerDashboardPresentation.statusLabel("dicuci"))
+        assertEquals("Dikeringkan", CustomerDashboardPresentation.statusLabel("dikeringkan"))
+        assertEquals("Disetrika", CustomerDashboardPresentation.statusLabel("disetrika"))
+        assertEquals("Dipacking", CustomerDashboardPresentation.statusLabel("dipacking"))
         assertEquals("Siap Diambil", CustomerDashboardPresentation.statusLabel("siap_diambil"))
         assertEquals("Selesai", CustomerDashboardPresentation.statusLabel("selesai"))
         assertEquals("Dibatalkan", CustomerDashboardPresentation.statusLabel("dibatalkan"))

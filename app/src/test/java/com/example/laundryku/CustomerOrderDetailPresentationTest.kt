@@ -9,10 +9,10 @@ class CustomerOrderDetailPresentationTest {
     @Test
     fun mapsEveryLaundryStatus() {
         assertEquals("Menunggu", CustomerOrderDetailPresentation.statusLabel("menunggu"))
-        assertEquals("Sedang Dicuci", CustomerOrderDetailPresentation.statusLabel("dicuci"))
-        assertEquals("Sedang Dikeringkan", CustomerOrderDetailPresentation.statusLabel("dikeringkan"))
-        assertEquals("Sedang Disetrika", CustomerOrderDetailPresentation.statusLabel("disetrika"))
-        assertEquals("Sedang Dipacking", CustomerOrderDetailPresentation.statusLabel("dipacking"))
+        assertEquals("Dicuci", CustomerOrderDetailPresentation.statusLabel("dicuci"))
+        assertEquals("Dikeringkan", CustomerOrderDetailPresentation.statusLabel("dikeringkan"))
+        assertEquals("Disetrika", CustomerOrderDetailPresentation.statusLabel("disetrika"))
+        assertEquals("Dipacking", CustomerOrderDetailPresentation.statusLabel("dipacking"))
         assertEquals("Siap Diambil", CustomerOrderDetailPresentation.statusLabel("siap_diambil"))
         assertEquals("Selesai", CustomerOrderDetailPresentation.statusLabel("selesai"))
         assertEquals("Dibatalkan", CustomerOrderDetailPresentation.statusLabel("dibatalkan"))

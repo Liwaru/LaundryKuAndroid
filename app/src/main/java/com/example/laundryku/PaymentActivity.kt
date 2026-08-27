@@ -163,31 +163,23 @@ class PaymentActivity : AppCompatActivity() {
             val item = LayoutInflater.from(this).inflate(R.layout.item_payment_method, methodsContainer, false)
             val card = item.findViewById<MaterialCardView>(R.id.paymentMethodCard)
             item.findViewById<TextView>(R.id.paymentMethodName).setText(method.label)
-            item.findViewById<TextView>(R.id.paymentMethodAvailability).setText(
-                if (method.available) R.string.payment_available else R.string.payment_coming_soon
-            )
+            item.findViewById<TextView>(R.id.paymentMethodAvailability).setText(R.string.payment_available)
             item.findViewById<RadioButton>(R.id.paymentMethodRadio).apply {
-                visibility = if (method.available) View.VISIBLE else View.GONE
                 isChecked = method.key == selectedMethod
             }
-            card.alpha = if (method.available) 1f else 0.7f
             card.strokeWidth = if (method.key == selectedMethod) dp(2) else dp(1)
             card.setStrokeColor(getColor(if (method.key == selectedMethod) R.color.laundry_primary else R.color.dashboard_divider))
             card.setOnClickListener {
-                if (method.available) {
-                    if (method.key == CASH_KEY && qrisPending) {
-                        Toast.makeText(this, R.string.payment_qris_switch_blocked, Toast.LENGTH_SHORT).show()
-                        return@setOnClickListener
-                    }
-                    selectedMethod = method.key
-                    renderMethods()
-                    when (method.key) {
-                        QRIS_KEY -> showQrisSelection(existing = qrisPending)
-                        CASH_KEY -> showCashSelection()
-                        else -> openEWalletPayment(method.key)
-                    }
-                } else {
-                    Toast.makeText(this, R.string.payment_unavailable_message, Toast.LENGTH_SHORT).show()
+                if (method.key == CASH_KEY && qrisPending) {
+                    Toast.makeText(this, R.string.payment_qris_switch_blocked, Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                selectedMethod = method.key
+                renderMethods()
+                when (method.key) {
+                    QRIS_KEY -> showQrisSelection(existing = qrisPending)
+                    CASH_KEY -> showCashSelection()
+                    else -> openEWalletPayment(method.key)
                 }
             }
             methodsContainer.addView(item)
@@ -376,7 +368,7 @@ class PaymentActivity : AppCompatActivity() {
         if (!isSubmitting && transactionId > 0) loadPaymentData()
     }
 
-    private data class PaymentMethod(val key: String, val label: Int, val available: Boolean)
+    private data class PaymentMethod(val key: String, val label: Int)
 
     companion object {
         const val EXTRA_TRANSACTION_ID = "extra_transaction_id"
@@ -385,13 +377,12 @@ class PaymentActivity : AppCompatActivity() {
         private const val QRIS_KEY = "qris"
         private val INDONESIAN_LOCALE = Locale.forLanguageTag("id-ID")
         private val PAYMENT_METHODS = listOf(
-            PaymentMethod(CASH_KEY, R.string.payment_cash, true),
-            PaymentMethod(QRIS_KEY, R.string.payment_qris, true),
-            PaymentMethod("gopay", R.string.payment_gopay, true),
-            PaymentMethod("dana", R.string.payment_dana, true),
-            PaymentMethod("ovo", R.string.payment_ovo, true),
-            PaymentMethod("shopeepay", R.string.payment_shopeepay, true),
-            PaymentMethod("paylater", R.string.payment_paylater, false)
+            PaymentMethod(CASH_KEY, R.string.payment_cash),
+            PaymentMethod(QRIS_KEY, R.string.payment_qris),
+            PaymentMethod("gopay", R.string.payment_gopay),
+            PaymentMethod("dana", R.string.payment_dana),
+            PaymentMethod("ovo", R.string.payment_ovo),
+            PaymentMethod("shopeepay", R.string.payment_shopeepay)
         )
     }
 }
